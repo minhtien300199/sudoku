@@ -1,0 +1,49 @@
+.title{
+    font-size: 60px;
+}
+#sudoku{
+    
+}
+#app {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    /* width: 100%; */
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;    
+    height: 10vh;
+    border-top: 1px solid rosybrown; 
+    /* border-left: 1px solid rosybrown; */
+}
+.row:last-child {
+    border-bottom: 1px solid rosybrown; 
+}
+
+.row.row-even{
+    border-bottom: 2px solid rosybrown;
+}
+.row.row-even-2{
+    border-top: 2px solid rosybrown;
+}
+.col {
+    display: flex;
+    width: calc(100% / 9);
+    /* border-bottom: 1px solid rosybrown; */
+    border-left: 1px solid rosybrown;
+}
+.col:last-child {
+    border-right: 1px solid rosybrown; 
+}
+
+.col.col-even {
+    border-right: 2px solid rosybrown;
+}
+
+
+.col.col-even-2 {
+    border-left: 2px solid rosybrown;
+}

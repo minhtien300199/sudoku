@@ -8,42 +8,43 @@
     display: flex;
     flex-direction: column;
     padding: 15px;
-    /* width: 100%; */
+    width: 80vw;
+    margin: auto;
 }
 
 .row {
-    width: 100%;
+    /* width: 80%; */
     display: flex;
     flex-direction: row;    
     height: 10vh;
-    border-top: 1px solid rosybrown; 
-    /* border-left: 1px solid rosybrown; */
+    border-top: 1px solid black; 
+    /* border-left: 1px solid black; */
 }
 .row:last-child {
-    border-bottom: 1px solid rosybrown; 
+    border-bottom: 1px solid black; 
 }
 
 .row.row-even{
-    border-bottom: 2px solid rosybrown;
+    border-bottom: 2px solid black;
 }
 .row.row-even-2{
-    border-top: 2px solid rosybrown;
+    border-top: 2px solid black;
 }
 .col {
     display: flex;
     width: calc(100% / 9);
-    /* border-bottom: 1px solid rosybrown; */
-    border-left: 1px solid rosybrown;
+    /* border-bottom: 1px solid black; */
+    border-left: 1px solid black;
 }
 .col:last-child {
-    border-right: 1px solid rosybrown; 
+    border-right: 1px solid black; 
 }
 
 .col.col-even {
-    border-right: 2px solid rosybrown;
+    border-right: 2px solid black;
 }
 
 
 .col.col-even-2 {
-    border-left: 2px solid rosybrown;
+    border-left: 2px solid black;
 }

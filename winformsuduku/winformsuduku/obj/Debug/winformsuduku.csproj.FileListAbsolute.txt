@@ -1,0 +1,5 @@
+C:\Users\hieun\Desktop\GitHub\sudoku\winformsuduku\winformsuduku\obj\Debug\winformsuduku.csprojAssemblyReference.cache
+C:\Users\hieun\Desktop\GitHub\sudoku\winformsuduku\winformsuduku\obj\Debug\Timer.Program.resources
+C:\Users\hieun\Desktop\GitHub\sudoku\winformsuduku\winformsuduku\obj\Debug\winformsuduku.Properties.Resources.resources
+C:\Users\hieun\Desktop\GitHub\sudoku\winformsuduku\winformsuduku\obj\Debug\winformsuduku.csproj.GenerateResource.cache
+C:\Users\hieun\Desktop\GitHub\sudoku\winformsuduku\winformsuduku\obj\Debug\winformsuduku.csproj.CoreCompileInputs.cache

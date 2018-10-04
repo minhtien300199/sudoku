@@ -74,17 +74,25 @@ var handleTouchPadCellClick = function(innderDiv, index) {
     };
     if(undoStack.length  === 0 || (undoStack[undoStack.length - 1].ColIndex!==obj.ColIndex &&undoStack[undoStack.length-1]!==obj.RowIndex)) 
     {
-        undoStack.push(obj);
-        Checksudoku(obj);
+      ktixj(parseInt(obj.RowIndex),parseInt(obj.ColIndex));
+      Checksudoku(obj);
+      undoStack.push(obj); 
+
     }else if (undoStack[undoStack.length - 1].ColIndex!==obj.ColIndex || undoStack[undoStack.length-1].RowIndex!==obj.RowIndex)
     {
+      ktixj(parseInt(obj.RowIndex),parseInt(obj.ColIndex));
+      Checksudoku(obj);
        undoStack.push(obj);
-       Checksudoku(obj);
+      
+       //Checksudoku(obj);
     } 
     else if (undoStack[undoStack.length - 1].value !== obj.value)
     {
-      undoStack.push(obj);
+      ktixj(parseInt(obj.RowIndex),parseInt(obj.ColIndex));
       Checksudoku(obj);
+      undoStack.push(obj);
+     
+      //Checksudoku(obj);
     }
     else if (undoStack[undoStack.length - 1].value === obj.value) 
     {
@@ -242,19 +250,200 @@ document.addEventListener("click", function(event) {
 /**************************************************************************************************************
  *      giải thuật.
  */
-
+var key,tempCol,tempRow;
 var Checksudoku=function(ob){
   //check hàng ngang.
-  var colCheck,rowCheck,max=9;
-    for (rowCheck=0;rowCheck<max;rowCheck++ )
+    var parsRow= parseInt(ob.RowIndex);
+    var parsCol=parseInt(ob.ColIndex);
+    var colCheck,rowCheck,max=9;
+    for (colCheck=0;colCheck<max;colCheck++ )
     {
-      if (ob.value===sudokuArray[ob.RowIndex][rowCheck] && ob.value!==sudokuArray[ob.RowIndex][ob.ColIndex])
+      if (parsCol!==colCheck && ob.value===sudokuArray[parsRow][colCheck])
       {
-        console.log(sudokuArray[ob.RowIndex][rowCheck]);
-        console.log('duplicate');
+        console.log(sudokuArray[parsRow][colCheck]);
+        console.log('Row Duplicated!');
         return false;
       }
     }
   //check hàng dọc.
+  for (rowCheck=0;rowCheck<max;rowCheck++)
+  {
+    if (parsRow!==rowCheck && ob.value===sudokuArray[rowCheck][parsCol])
+      {
+        console.log(sudokuArray[rowCheck][parsCol]);
+        console.log('Colum Duplicated!');
+        return false;
+      }
+  }
+  //kt ô 3x3:
+  for (var i = -1; i <= 1; i++)
+  {
+		for (var j = -1; j <= 1; j++)
+		{
+			if (sudokuArray[tempRow+i][tempCol+j] > 0)
+			{
+        if (sudokuSearch(tempCol, tempRow, sudokuArray[tempRow+i][tempCol+j]) === false)
+        {
+          console.log("3x3 Square Duplicated!");
+          return false;
+        } 
+			}
+    }
+
+  }
+    console.log("No error!");
+    return true;
  
 };
+
+var chuyenvung=function(key)
+{
+
+	switch (key)
+	{
+    case 0:
+    {
+
+      tempRow = 1;
+      tempCol = 1;
+    }
+      break;
+    case 1:
+    {
+      tempRow = 1;
+      tempCol = 4;
+    }
+      
+      break;
+    case 2:
+    {
+      tempRow = 1;
+      tempCol = 7;
+    }
+    
+      break;
+    case 3:
+    {
+      tempCol = 1;
+      tempRow = 4;
+    }
+    
+      break;
+    case 4:
+    {
+      tempCol = 4;
+      tempRow = 4;
+    }
+    
+      break;
+    case 5:
+    {
+      tempCol = 7;
+      tempRow = 4;
+    }
+      break;
+    case 6:
+    {
+      tempRow = 7;
+      tempCol = 1;
+    }
+    
+      break;
+    case 7:
+    {
+      tempRow = 7;
+      tempCol = 4;
+    }
+      
+      break;
+    case 8:
+    {
+      tempRow = 7;
+      tempCol = 7;
+
+    }
+      break;
+    default:
+      console.log("nhập sai");
+      break;
+	}
+};
+
+var ktixj=function(row,col)
+{
+    for (var i = -1; i <= 1; i++)
+    {
+      for (var j = -1; j <= 1; j++)
+      {
+        if (row + i === 1)
+        {
+          if (col + j == 1) 
+          {
+            key=0;
+            return chuyenvung(key);
+  
+          } 
+          else if (col + j === 4)  
+          {
+            key = 1;
+            return chuyenvung(key);
+          }
+          else if (col + j === 7) 
+          {
+            key = 2;
+            return chuyenvung(key);
+          }
+        }
+        else if (row + i === 4)
+        {
+          if (col+j === 1)  
+          {
+            key = 3;
+            return chuyenvung(key);
+          }
+          else if (col + j === 4)  
+          {
+            key = 4;
+            return chuyenvung(key);
+          }
+          else if (col + j === 7)  
+          {
+            key = 5;
+            return chuyenvung(key);
+          }
+        }
+        else if (row + i === 7)
+        {
+          if (col + j === 1) 
+          {
+            key = 6;
+            return chuyenvung(key);
+          }
+          else if (col + j === 4)  
+          {
+            key = 7;
+            return chuyenvung(key);
+          }
+          else if (col + j === 7)  
+          {
+            key = 8;
+            return chuyenvung(key);
+          }
+        }
+    }
+    }
+	
+};
+var sudokuSearch=function(col,row,mark)
+{
+	var dem = 0;
+	for (var i = -1; i <= 1; i++)
+		for (var j = -1; j <= 1; j++)
+		{
+			if (mark == sudokuArray[row+i][col+j])
+				dem++;		
+		}
+	if (dem == 1) return true;
+	else return false;
+};
+

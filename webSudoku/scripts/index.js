@@ -208,28 +208,67 @@ var render = function(boardsArray) {
 
   // fillNumber();
 };
-
-var timer = 0;
+var t=new Date();
+var timer=0;
 var timerInterval = null;
-
+var min=0,hour=0;
 var startTimer = function () {
     timerInterval =  setInterval(function() {
         timer += 1;
-       // console.log(timer);
-        // timer = new Date().getTime() - timer;        
-        // console.log(new Date().getTime() - timer);
-    }, 1000);
+       if (timer===60)
+       {
+          if (min>=59)
+          {
+            hour+=1;
+            min=0;
+            
+          } else if (min<10)
+          {
+            min+=1;
+            if (timer<=9)
+            {
+              document.getElementById("time").innerHTML=hour+":0"+min+":0"+timer;
+            }
+            else if (timer>=10)
+            {
+             document.getElementById("time").innerHTML=hour+":0"+min+":"+timer;
+            }
+     
+          } else if (min>=10)
+          {
+            min+=1;
+            if (timer<10)
+            {
+              document.getElementById("time").innerHTML=hour+":"+min+":0"+timer;
+            }
+            else if (timer>=10)
+            {
+             document.getElementById("time").innerHTML=hour+":"+min+":"+timer;
+            }
 
-    setTimeout(() => {
-        clearInterval(timerInterval);
-    }, 10000);
-}
+          }
+          timer=0;
+       }
+       if (timer<10)
+       {
+         document.getElementById("time").innerHTML=hour+":"+min+":0"+timer;
+       }
+       else if (timer>=10)
+       {
+        document.getElementById("time").innerHTML=hour+":"+min+":"+timer;
+       }
+       //console.log(hour+':'+min+':'+timer);
+    }, 1000);
+    // setTimeout(() => {
+    //     clearInterval(timerInterval);
+    // }, 10000);
+};
 
 document.addEventListener("DOMContentLoaded", function() {
   var max = 9;
   render(sudokuArray);
   renderNum(max);
- // startTimer();
+  //startTimer();
 });
 
 document.addEventListener("click", function(event) {

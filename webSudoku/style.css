@@ -101,3 +101,49 @@
 .hidden {
     visibility: hidden;
 }
+
+#time{
+    width: 4em;
+    padding: 2em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1em;
+    background-image: url(./backGround.jpg);
+    background-size: cover;
+    background-attachment: scroll;
+    position: fixed;
+    color: white;
+    border-radius: 90px;
+    top: 2vh;
+    left: 0vw;
+}
+#btn-1{
+    width: 9vw;
+    height: 5vh;
+    position: fixed;
+    top: 13vh;
+    left: 0vw;;
+    padding: 32px;
+    font-size: 100%;
+    
+}
+#btn-2{
+    width: 9vw;
+    height: 5vh;
+    position: fixed;
+    top: 191px;
+    left: 0vw;;
+    padding: 32px;
+    font-size: 100%;
+
+}
+#btn-3{
+    width: 9vw;
+    height: 5vh;
+    position: fixed;
+    top: 260px;
+    left: 0vw;;
+    padding: 32px;
+    font-size: 100%;
+
+
+}

@@ -11,18 +11,22 @@ var maxCellStack = 1;
 var selectedCell = [];
 var maxUndoStack = 100;
 var undoStack = [];
-
 var sudokuArray = [
-  [1, 2, 0, "", 5, 6, 7, 8, 9],
-  [1, 2, 3, 4, 5, 6, 7, 8, 9],
-  [1, 2, 3, 4, 5, 6, 7, 8, 9],
-  [1, 2, 3, 4, 5, 6, 7, 8, 9],
-  [1, 2, 3, 4, 8, 6, 7, 8, 9],
-  [1, 2, 3, 4, 5, 6, 7, 8, 9],
-  [1, 2, 4, 4, 5, 6, 3, 8, 9],
-  [1, 2, 3, 4, 5, 8, 7, 8, 9],
-  [1, 2, 3, 1, 5, 6, 7, 8, 9]
+  [2, 3, 7, 1, 6, 5, 9, 8, 4],
+  ['','', '', '', 3, '', 7, 2, 5],
+  ['', 4, '', '', 7, '', 6, '', 3],
+  ['', 2, '', 7, '', 4, '', '', ''],
+  ['', 8, '', '', '', '', 2, 5, 7],
+  ['', 7, '', 2, '', 6, '', '', ''],
+  [8, '', '', '', '', '', '', 7, ''],
+  [3, 1, '', '', 9, 7, '', '', 8],
+  [7, 5, 2, 6, '', '', 8, '', '']
 ];
+
+var undoButton=function()
+{
+  
+};
 
 var clearSelectedCell = function() {
   if (selectedCell && selectedCell.length > 0) {
@@ -31,7 +35,7 @@ var clearSelectedCell = function() {
   }
 };
 
-var toggleTouchPad = function(showTouchPad) {
+var toggleTouchPad = function(showTouchPad, rowIndex, colIndex) {
     // console.log(position);
   var touchPad = document.getElementById("touchpad");
   if (!showTouchPad) {
@@ -43,12 +47,12 @@ var toggleTouchPad = function(showTouchPad) {
   }
 };
 
-var changeNum = function(boardsArray, rowIndex, colIndex) {
-  return function() {
-    if (boardsArray[rowIndex][colIndex] === "")
-      console.log(boardsArray[rowIndex][colIndex]);
-  };
-};
+// var changeNum = function(boardsArray, rowIndex, colIndex) {
+//   return function() {
+//     if (boardsArray[rowIndex][colIndex] === "")
+//       console.log(boardsArray[rowIndex][colIndex]);
+//   };
+// };
 
 var handleTouchPadCellClick = function(innderDiv, index) {
   return function() {
@@ -106,10 +110,17 @@ var handleSudokuCellClick = function(innerDiv, rowIndex, colIndex) {
     if (classList.value.indexOf("active") < 0) {
       classList.add("active");
       selectedCell.push(innerDiv);
-      toggleTouchPad(true, {
+      if (innerDiv.getAttribute("id")===null)
+      {
+        toggleTouchPad(true, {
           x: event.clientX,
           y: event.clientY
       });
+      } else
+      {
+        toggleTouchPad(false);
+      }
+
     } else {
       // flag = false;
       classList.remove("active");
@@ -149,7 +160,8 @@ var render = function(boardsArray) {
       } else div.setAttribute("class", "row");
     }
 
-    for (colIndex = 0; colIndex < max; colIndex++) {
+    for (colIndex = 0; colIndex < max; colIndex++) 
+    {
       var innerDiv = document.createElement("div");
       var colClass = "col" + cellNumberClass;
       innerDiv.setAttribute("data-row", rowIndex);
@@ -165,6 +177,8 @@ var render = function(boardsArray) {
       }
       try {
         innerDiv.innerText = boardsArray[rowIndex][colIndex];
+        if (innerDiv.textContent!== '')
+        innerDiv.setAttribute("id","base");
       } catch (ex) {
         console.log(rowIndex, colIndex);
       }
@@ -222,3 +236,7 @@ document.addEventListener("click", function(event) {
     clearSelectedCell();
   }
 });
+/**************************************************************************************************************
+ *      giải thuật.
+ */
+

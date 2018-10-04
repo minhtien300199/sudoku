@@ -1,9 +1,12 @@
 .title{
     font-size: 60px;
 }
-#sudoku{
-    
+
+#base{
+    background-color:rgb(224, 224, 224);
+    font-style: initial;
 }
+
 #app {
     display: flex;
     flex-direction: column;

@@ -75,13 +75,16 @@ var handleTouchPadCellClick = function(innderDiv, index) {
     if(undoStack.length  === 0 || (undoStack[undoStack.length - 1].ColIndex!==obj.ColIndex &&undoStack[undoStack.length-1]!==obj.RowIndex)) 
     {
         undoStack.push(obj);
+        Checksudoku(obj);
     }else if (undoStack[undoStack.length - 1].ColIndex!==obj.ColIndex || undoStack[undoStack.length-1].RowIndex!==obj.RowIndex)
     {
        undoStack.push(obj);
+       Checksudoku(obj);
     } 
     else if (undoStack[undoStack.length - 1].value !== obj.value)
     {
       undoStack.push(obj);
+      Checksudoku(obj);
     }
     else if (undoStack[undoStack.length - 1].value === obj.value) 
     {
@@ -240,3 +243,18 @@ document.addEventListener("click", function(event) {
  *      giải thuật.
  */
 
+var Checksudoku=function(ob){
+  //check hàng ngang.
+  var colCheck,rowCheck,max=9;
+    for (rowCheck=0;rowCheck<max;rowCheck++ )
+    {
+      if (ob.value===sudokuArray[ob.RowIndex][rowCheck] && ob.value!==sudokuArray[ob.RowIndex][ob.ColIndex])
+      {
+        console.log(sudokuArray[ob.RowIndex][rowCheck]);
+        console.log('duplicate');
+        return false;
+      }
+    }
+  //check hàng dọc.
+ 
+};

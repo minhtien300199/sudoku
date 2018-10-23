@@ -148,7 +148,6 @@ background:red;
 
 
 }
-[mark="wrong"]:hover{
-    padding: 10px 10px;
-    font-size: 20px;
+.wrong{
+    color: blue;
 }

@@ -27,6 +27,7 @@ var handleTouchPadCellClick = function(innderDiv, index) {
     var rowIndex = selectedCell[0].getAttribute("data-row");
     var colIndex = selectedCell[0].getAttribute("data-col");
     var value = index + 1;
+    var classList=selectedCell[0].classList;
     // console.log(innderDiv, index);
     // console.log(selectedCell);
     // TODO:
@@ -47,30 +48,43 @@ var handleTouchPadCellClick = function(innderDiv, index) {
     ) {
       if (Checksudoku1(obj)===1)
       {
+        if (classList.value.indexOf("wrong")>0)
+          classList.remove("wrong");
         undoStack.push(obj);
       } else 
       {
         //báo sai.
-        selectedCell[0].setAttribute("mark","wrong");
+        //if (classList.indexOf("wrong")<0)
+        classList.add("wrong");
       }
     } else if (
       undoStack[undoStack.length - 1].ColIndex !== obj.ColIndex ||
       undoStack[undoStack.length - 1].RowIndex !== obj.RowIndex
     ) {
       if (Checksudoku1(obj)===1)
-      undoStack.push(obj);
+      {
+        if (classList.value.indexOf("wrong")>0)
+        classList.remove("wrong");
+        undoStack.push(obj);
+      }
       else 
       {
         //báo sai.
-        selectedCell[0].setAttribute("mark","wrong");
+        //if (classList.indexOf("wrong")<0)
+          classList.add("wrong");
       }
     } else if (undoStack[undoStack.length - 1].value !== obj.value) {
       if (Checksudoku1(obj)===1)
-      undoStack.push(obj);
+      {
+        if (classList.value.indexOf("wrong")>0)
+        classList.remove("wrong");
+        undoStack.push(obj);
+      }
       else 
       {
         //báo sai.
-        selectedCell[0].setAttribute("mark","wrong");
+        //if (classList.indexOf("wrong")<0)
+        classList.add("wrong");
       }
     } else if (undoStack[undoStack.length - 1].value === obj.value) {
       console.log("duplicate!");

@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <title>Code Sudoku</title>
     <link type="text/css" rel="stylesheet" href="./style.css">
+    <script src="./scripts/variable.js"></script>   
+    <script src="./scripts/solveSudoku.js"></script>
     <script src="./scripts/index.js"></script>
 </head>
 <body>
@@ -13,8 +15,8 @@
     <div id="touchpad" class="hidden"></div>
     <div id="time"></div>
     <button id="btn-1" onclick="clearInterval(timerInterval)" ><center>Pause</center></button>
-   <button id="btn-2" onclick="startTimer();" >Start|Continue</button>
-   <button id="btn-3" onclick="stopfunc()">
+    <button id="btn-2" onclick="startTimer();" >Start|Continue</button>
+    <button id="btn-3" onclick="stopfunc()">
         <script>
             var stopfunc=function(){
                 clearInterval(timerInterval);
@@ -24,7 +26,8 @@
             document.getElementById("time").innerHTML="0:0:00";
             }
             </script>
-            Stop
+            Reset
     </button>
+    <button id="sovlebtn">dab</button>
 </body>
 

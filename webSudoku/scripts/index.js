@@ -6,27 +6,7 @@
 //     }
 // };
 
-var cellNumberClass = " cell-number";
-var maxCellStack = 1;
-var selectedCell = [];
-var maxUndoStack = 100;
-var undoStack = [];
-var sudokuArray = [
-  [2, 3, 7, 1, 6, 5, 9, 8, 4],
-  ['','', '', '', 3, '', 7, 2, 5],
-  ['', 4, '', '', 7, '', 6, '', 3],
-  ['', 2, '', 7, '', 4, '', '', ''],
-  ['', 8, '', '', '', '', 2, 5, 7],
-  ['', 7, '', 2, '', 6, '', '', ''],
-  [8, '', '', '', '', '', '', 7, ''],
-  [3, 1, '', '', 9, 7, '', '', 8],
-  [7, 5, 2, 6, '', '', 8, '', '']
-];
-
-var undoButton=function()
-{
-  
-};
+var undoButton = function() {};
 
 var clearSelectedCell = function() {
   if (selectedCell && selectedCell.length > 0) {
@@ -36,14 +16,13 @@ var clearSelectedCell = function() {
 };
 
 var toggleTouchPad = function(showTouchPad, rowIndex, colIndex) {
-    // console.log(position);
+  // console.log(position);
   var touchPad = document.getElementById("touchpad");
   if (!showTouchPad) {
     touchPad.classList.add("hidden");
   } else {
     touchPad.classList.remove("hidden");
     //console.log(touchPad.style.left, touchPad.style.top );
-    
   }
 };
 
@@ -72,33 +51,29 @@ var handleTouchPadCellClick = function(innderDiv, index) {
       value: value,
       preValue: prevValue
     };
-    if(undoStack.length  === 0 || (undoStack[undoStack.length - 1].ColIndex!==obj.ColIndex &&undoStack[undoStack.length-1]!==obj.RowIndex)) 
-    {
-      ktixj(parseInt(obj.RowIndex),parseInt(obj.ColIndex));
-      Checksudoku(obj);
-      undoStack.push(obj); 
-
-    }else if (undoStack[undoStack.length - 1].ColIndex!==obj.ColIndex || undoStack[undoStack.length-1].RowIndex!==obj.RowIndex)
-    {
-      ktixj(parseInt(obj.RowIndex),parseInt(obj.ColIndex));
-      Checksudoku(obj);
-       undoStack.push(obj);
-      
-       //Checksudoku(obj);
-    } 
-    else if (undoStack[undoStack.length - 1].value !== obj.value)
-    {
-      ktixj(parseInt(obj.RowIndex),parseInt(obj.ColIndex));
+    if (
+      undoStack.length === 0 ||
+      (undoStack[undoStack.length - 1].ColIndex !== obj.ColIndex &&
+        undoStack[undoStack.length - 1] !== obj.RowIndex)
+    ) {
+      ktixj(parseInt(obj.RowIndex), parseInt(obj.ColIndex));
       Checksudoku(obj);
       undoStack.push(obj);
-     
-      //Checksudoku(obj);
+    } else if (
+      undoStack[undoStack.length - 1].ColIndex !== obj.ColIndex ||
+      undoStack[undoStack.length - 1].RowIndex !== obj.RowIndex
+    ) {
+      ktixj(parseInt(obj.RowIndex), parseInt(obj.ColIndex));
+      Checksudoku(obj);
+      undoStack.push(obj);
+    } else if (undoStack[undoStack.length - 1].value !== obj.value) {
+      ktixj(parseInt(obj.RowIndex), parseInt(obj.ColIndex));
+      Checksudoku(obj);
+      undoStack.push(obj);
+    } else if (undoStack[undoStack.length - 1].value === obj.value) {
+      console.log("duplicate!");
     }
-    else if (undoStack[undoStack.length - 1].value === obj.value) 
-    {
-        console.log('duplicate!');
-    }
-    
+
     console.log(undoStack);
   };
 };
@@ -121,17 +96,14 @@ var handleSudokuCellClick = function(innerDiv, rowIndex, colIndex) {
     if (classList.value.indexOf("active") < 0) {
       classList.add("active");
       selectedCell.push(innerDiv);
-      if (innerDiv.getAttribute("id")===null)
-      {
+      if (innerDiv.getAttribute("id") === null) {
         toggleTouchPad(true, {
           x: event.clientX,
           y: event.clientY
-      });
-      } else
-      {
+        });
+      } else {
         toggleTouchPad(false);
       }
-
     } else {
       // flag = false;
       classList.remove("active");
@@ -171,8 +143,7 @@ var render = function(boardsArray) {
       } else div.setAttribute("class", "row");
     }
 
-    for (colIndex = 0; colIndex < max; colIndex++) 
-    {
+    for (colIndex = 0; colIndex < max; colIndex++) {
       var innerDiv = document.createElement("div");
       var colClass = "col" + cellNumberClass;
       innerDiv.setAttribute("data-row", rowIndex);
@@ -188,8 +159,7 @@ var render = function(boardsArray) {
       }
       try {
         innerDiv.innerText = boardsArray[rowIndex][colIndex];
-        if (innerDiv.textContent!== '')
-        innerDiv.setAttribute("id","base");
+        if (innerDiv.textContent !== "") innerDiv.setAttribute("id", "base");
       } catch (ex) {
         console.log(rowIndex, colIndex);
       }
@@ -208,70 +178,61 @@ var render = function(boardsArray) {
 
   // fillNumber();
 };
-var t=new Date();
-var timer=0;
+var t = new Date();
+var timer = 0;
 var timerInterval = null;
-var min=0,hour=0;
-var startTimer = function () {
-    timerInterval =  setInterval(function() {
-        timer += 1;
-       if (timer===60)
-       {
-          if (min>=59)
-          {
-            hour+=1;
-            min=0;
-            
-          } else if (min<10)
-          {
-            min+=1;
-            if (timer<=9)
-            {
-              document.getElementById("time").innerHTML=hour+":0"+min+":0"+timer;
-            }
-            else if (timer>=10)
-            {
-             document.getElementById("time").innerHTML=hour+":0"+min+":"+timer;
-            }
-     
-          } else if (min>=10)
-          {
-            min+=1;
-            if (timer<10)
-            {
-              document.getElementById("time").innerHTML=hour+":"+min+":0"+timer;
-            }
-            else if (timer>=10)
-            {
-             document.getElementById("time").innerHTML=hour+":"+min+":"+timer;
-            }
-
-          }
-          timer=0;
-       }
-       if (timer<10)
-       {
-         document.getElementById("time").innerHTML=hour+":"+min+":0"+timer;
-       }
-       else if (timer>=10)
-       {
-        document.getElementById("time").innerHTML=hour+":"+min+":"+timer;
-       }
-       //console.log(hour+':'+min+':'+timer);
-    }, 1000);
-    // setTimeout(() => {
-    //     clearInterval(timerInterval);
-    // }, 10000);
+var min = 0,
+  hour = 0;
+var startTimer = function() {
+  timerInterval = setInterval(function() {
+    timer += 1;
+    if (timer === 60) {
+      if (min >= 59) {
+        hour += 1;
+        min = 0;
+      } else if (min < 10) {
+        min += 1;
+        if (timer <= 9) {
+          document.getElementById("time").innerHTML =
+            hour + ":0" + min + ":0" + timer;
+        } else if (timer >= 10) {
+          document.getElementById("time").innerHTML =
+            hour + ":0" + min + ":" + timer;
+        }
+      } else if (min >= 10) {
+        min += 1;
+        if (timer < 10) {
+          document.getElementById("time").innerHTML =
+            hour + ":" + min + ":0" + timer;
+        } else if (timer >= 10) {
+          document.getElementById("time").innerHTML =
+            hour + ":" + min + ":" + timer;
+        }
+      }
+      timer = 0;
+    }
+    if (timer < 10) {
+      document.getElementById("time").innerHTML =
+        hour + ":" + min + ":0" + timer;
+    } else if (timer >= 10) {
+      document.getElementById("time").innerHTML =
+        hour + ":" + min + ":" + timer;
+    }
+    //console.log(hour+':'+min+':'+timer);
+  }, 1000);
+  // setTimeout(() => {
+  //     clearInterval(timerInterval);
+  // }, 10000);
 };
 
 document.addEventListener("DOMContentLoaded", function() {
   var max = 9;
   render(sudokuArray);
   renderNum(max);
-  //startTimer();
 });
 
 document.addEventListener("click", function(event) {
+  SolveSu();
   // console.log(event);
   if (
     event.target &&
@@ -286,203 +247,3 @@ document.addEventListener("click", function(event) {
     clearSelectedCell();
   }
 });
-/**************************************************************************************************************
- *      giải thuật.
- */
-var key,tempCol,tempRow;
-var Checksudoku=function(ob){
-  //check hàng ngang.
-    var parsRow= parseInt(ob.RowIndex);
-    var parsCol=parseInt(ob.ColIndex);
-    var colCheck,rowCheck,max=9;
-    for (colCheck=0;colCheck<max;colCheck++ )
-    {
-      if (parsCol!==colCheck && ob.value===sudokuArray[parsRow][colCheck])
-      {
-        console.log(sudokuArray[parsRow][colCheck]);
-        console.log('Row Duplicated!');
-        return false;
-      }
-    }
-  //check hàng dọc.
-  for (rowCheck=0;rowCheck<max;rowCheck++)
-  {
-    if (parsRow!==rowCheck && ob.value===sudokuArray[rowCheck][parsCol])
-      {
-        console.log(sudokuArray[rowCheck][parsCol]);
-        console.log('Colum Duplicated!');
-        return false;
-      }
-  }
-  //kt ô 3x3:
-  for (var i = -1; i <= 1; i++)
-  {
-		for (var j = -1; j <= 1; j++)
-		{
-			if (sudokuArray[tempRow+i][tempCol+j] > 0)
-			{
-        if (sudokuSearch(tempCol, tempRow, sudokuArray[tempRow+i][tempCol+j]) === false)
-        {
-          console.log("3x3 Square Duplicated!");
-          return false;
-        } 
-			}
-    }
-
-  }
-    console.log("No error!");
-    return true;
- 
-};
-
-var chuyenvung=function(key)
-{
-
-	switch (key)
-	{
-    case 0:
-    {
-
-      tempRow = 1;
-      tempCol = 1;
-    }
-      break;
-    case 1:
-    {
-      tempRow = 1;
-      tempCol = 4;
-    }
-      
-      break;
-    case 2:
-    {
-      tempRow = 1;
-      tempCol = 7;
-    }
-    
-      break;
-    case 3:
-    {
-      tempCol = 1;
-      tempRow = 4;
-    }
-    
-      break;
-    case 4:
-    {
-      tempCol = 4;
-      tempRow = 4;
-    }
-    
-      break;
-    case 5:
-    {
-      tempCol = 7;
-      tempRow = 4;
-    }
-      break;
-    case 6:
-    {
-      tempRow = 7;
-      tempCol = 1;
-    }
-    
-      break;
-    case 7:
-    {
-      tempRow = 7;
-      tempCol = 4;
-    }
-      
-      break;
-    case 8:
-    {
-      tempRow = 7;
-      tempCol = 7;
-
-    }
-      break;
-    default:
-      console.log("nhập sai");
-      break;
-	}
-};
-
-var ktixj=function(row,col)
-{
-    for (var i = -1; i <= 1; i++)
-    {
-      for (var j = -1; j <= 1; j++)
-      {
-        if (row + i === 1)
-        {
-          if (col + j == 1) 
-          {
-            key=0;
-            return chuyenvung(key);
-  
-          } 
-          else if (col + j === 4)  
-          {
-            key = 1;
-            return chuyenvung(key);
-          }
-          else if (col + j === 7) 
-          {
-            key = 2;
-            return chuyenvung(key);
-          }
-        }
-        else if (row + i === 4)
-        {
-          if (col+j === 1)  
-          {
-            key = 3;
-            return chuyenvung(key);
-          }
-          else if (col + j === 4)  
-          {
-            key = 4;
-            return chuyenvung(key);
-          }
-          else if (col + j === 7)  
-          {
-            key = 5;
-            return chuyenvung(key);
-          }
-        }
-        else if (row + i === 7)
-        {
-          if (col + j === 1) 
-          {
-            key = 6;
-            return chuyenvung(key);
-          }
-          else if (col + j === 4)  
-          {
-            key = 7;
-            return chuyenvung(key);
-          }
-          else if (col + j === 7)  
-          {
-            key = 8;
-            return chuyenvung(key);
-          }
-        }
-    }
-    }
-	
-};
-var sudokuSearch=function(col,row,mark)
-{
-	var dem = 0;
-	for (var i = -1; i <= 1; i++)
-		for (var j = -1; j <= 1; j++)
-		{
-			if (mark == sudokuArray[row+i][col+j])
-				dem++;		
-		}
-	if (dem == 1) return true;
-	else return false;
-};
-

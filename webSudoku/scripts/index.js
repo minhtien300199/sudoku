@@ -1,13 +1,8 @@
-// var fillNumber = function () {
-//     var max = 81;
-//     var slc = document.querySelectorAll(".col");
-//     for (var i = 0; i < max; i++) {
-//         slc[i].textContent = i;
-//     }
-// };
 
-var undoButton = function() {};
+var undoButton = function() {
 
+};
+var axy;
 var clearSelectedCell = function() {
   if (selectedCell && selectedCell.length > 0) {
     selectedCell[0].classList.remove("active");
@@ -26,12 +21,6 @@ var toggleTouchPad = function(showTouchPad, rowIndex, colIndex) {
   }
 };
 
-// var changeNum = function(boardsArray, rowIndex, colIndex) {
-//   return function() {
-//     if (boardsArray[rowIndex][colIndex] === "")
-//       console.log(boardsArray[rowIndex][colIndex]);
-//   };
-// };
 
 var handleTouchPadCellClick = function(innderDiv, index) {
   return function() {
@@ -56,24 +45,36 @@ var handleTouchPadCellClick = function(innderDiv, index) {
       (undoStack[undoStack.length - 1].ColIndex !== obj.ColIndex &&
         undoStack[undoStack.length - 1] !== obj.RowIndex)
     ) {
-      ktixj(parseInt(obj.RowIndex), parseInt(obj.ColIndex));
-      Checksudoku(obj);
-      undoStack.push(obj);
+      if (Checksudoku1(obj)===1)
+      {
+        undoStack.push(obj);
+      } else 
+      {
+        //báo sai.
+        selectedCell[0].setAttribute("mark","wrong");
+      }
     } else if (
       undoStack[undoStack.length - 1].ColIndex !== obj.ColIndex ||
       undoStack[undoStack.length - 1].RowIndex !== obj.RowIndex
     ) {
-      ktixj(parseInt(obj.RowIndex), parseInt(obj.ColIndex));
-      Checksudoku(obj);
+      if (Checksudoku1(obj)===1)
       undoStack.push(obj);
+      else 
+      {
+        //báo sai.
+        selectedCell[0].setAttribute("mark","wrong");
+      }
     } else if (undoStack[undoStack.length - 1].value !== obj.value) {
-      ktixj(parseInt(obj.RowIndex), parseInt(obj.ColIndex));
-      Checksudoku(obj);
+      if (Checksudoku1(obj)===1)
       undoStack.push(obj);
+      else 
+      {
+        //báo sai.
+        selectedCell[0].setAttribute("mark","wrong");
+      }
     } else if (undoStack[undoStack.length - 1].value === obj.value) {
       console.log("duplicate!");
     }
-
     console.log(undoStack);
   };
 };
@@ -90,7 +91,6 @@ var handleSudokuCellClick = function(innerDiv, rowIndex, colIndex) {
         // console.log('full stack');
         selectedCell[0].classList.remove("active");
         selectedCell.shift();
-        // return;
       }
     }
     if (classList.value.indexOf("active") < 0) {
@@ -163,7 +163,6 @@ var render = function(boardsArray) {
       } catch (ex) {
         console.log(rowIndex, colIndex);
       }
-
       //nhập ma trận. và xử lý nhập xuất số
       div.appendChild(innerDiv);
       //innerDiv.addEventListener("click",changeNum(boardsArray,rowIndex,colIndex,innerDiv));
@@ -172,17 +171,13 @@ var render = function(boardsArray) {
         handleSudokuCellClick(innerDiv, rowIndex, colIndex)
       );
     }
-
     container.appendChild(div);
   }
-
-  // fillNumber();
 };
 var t = new Date();
 var timer = 0;
 var timerInterval = null;
-var min = 0,
-  hour = 0;
+var min = 0,hour = 0;
 var startTimer = function() {
   timerInterval = setInterval(function() {
     timer += 1;
@@ -227,12 +222,13 @@ var startTimer = function() {
 
 document.addEventListener("DOMContentLoaded", function() {
   var max = 9;
+  copyOfSudokuArr();
   render(sudokuArray);
   renderNum(max);
 });
 
 document.addEventListener("click", function(event) {
-  SolveSu();
+  SolveSu();    //hàm giải
   // console.log(event);
   if (
     event.target &&

@@ -5,6 +5,7 @@
 #base{
     background-color:rgb(224, 224, 224);
     font-style: initial;
+    cursor: unset;
 }
 
 #app {
@@ -96,7 +97,7 @@
 }
 
 .row .col:hover{
-   background:red;
+background:red;
 }
 .hidden {
     visibility: hidden;
@@ -146,4 +147,8 @@
     font-size: 100%;
 
 
+}
+[mark="wrong"]:hover{
+    padding: 10px 10px;
+    font-size: 20px;
 }

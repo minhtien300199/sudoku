@@ -9,6 +9,7 @@ var sudokuStack = [];
 var max = 9;
 var cell=[];
 var n=9;
+var solveSudokuArr=[[],[],[],[],[],[],[],[],[]];
 var sudokuArray = [
   ["", "", 3, "", 8, "", 9, 6, ""],
   ["", "", "", 1, "", "", "", "", 7],
@@ -75,7 +76,6 @@ var ax=[
 [ "", 3, 7, "", 6, "", "", "", 4],
 [ "", 9, 4, 3, "", "", "", "", "",]
 ] ;
-a=sudokuArray;
 // tạo 1 object chứa dòng cột giá trị ô đó.
 function StackNode(row, col, val) {
   return {

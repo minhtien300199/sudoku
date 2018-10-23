@@ -45,6 +45,38 @@ var Checksudoku = function(ob) {
   return true;
 };
 
+var Checksudoku1 = function(ob) {
+  //check hàng ngang.
+  var i= parseInt(ob.RowIndex);
+  var j = parseInt(ob.ColIndex);
+  var x=parseInt(ob.value);
+    var k, t;
+    var tmpX, tmpY;
+    //kiem tra hang thu i da co cai nao trung chua
+    for (k = 0; k < max; k++) 
+      if (sudokuArray[i][k] === x &&  k!=j) 
+      {
+        return 0;
+      }
+    //kiem tra cot thu j da co cai nao trung chua
+    for (k = 0; k < max; k++) 
+      if (sudokuArray[k][j] === x && k!=i)
+      {
+        return 0;
+      }
+    //kiem tra trong o 3x3
+    tmpX = i % 3;
+    tmpY = j % 3;
+    for (k = i - tmpX; k <= i - tmpX + 2; k++)
+      for (t = j - tmpY; t <= j - tmpY + 2; t++) 
+        if (sudokuArray[k][t] === x && (k!=i && t!=j)) 
+        {
+          return 0;
+        }
+  return 1;
+};
+
+
 var chuyenvung = function(key) {
   switch (key) {
     case 0:
@@ -163,6 +195,15 @@ var sudokuSearch = function(col, row, mark) {
   else return false;
 };
 
+var copyOfSudokuArr=function()
+{
+  for (var rowIndex=0;rowIndex<max;rowIndex++)
+    for (var colIndex=0;colIndex<max;colIndex++)
+    {
+      solveSudokuArr[rowIndex][colIndex]=sudokuArray[rowIndex][colIndex];
+    }
+};
+
 //hàm giải cả 1 sudoku
 
 var isOK = function(i, j, x)          //kt ma trận.
@@ -170,15 +211,14 @@ var isOK = function(i, j, x)          //kt ma trận.
   var k, t;
   var tmpX, tmpY;
   //kiem tra hang thu i da co cai nao trung chua
-  for (k = 0; k < max; k++) if (a[i][k] === x) return 0;
+  for (k = 0; k < max; k++) if (solveSudokuArr[i][k] === x) return 0;
   //kiem tra cot thu j da co cai nao trung chua
-  for (k = 0; k < max; k++) if (a[k][j] === x) return 0;
-
+  for (k = 0; k < max; k++) if (solveSudokuArr[k][j] === x) return 0;
   //kiem tra trong o 3x3
   tmpX = i % 3;
   tmpY = j % 3;
   for (k = i - tmpX; k <= i - tmpX + 2; k++)
-    for (t = j - tmpY; t <= j - tmpY + 2; t++) if (a[k][t] === x) return 0;
+    for (t = j - tmpY; t <= j - tmpY + 2; t++) if (solveSudokuArr[k][t] === x) return 0;
   return 1;
 };
 
@@ -193,14 +233,14 @@ var SolveSu = function()
     {
       //
       var k = 1;
-      if (a[rowIndex][colIndex] === "")
+      if (solveSudokuArr[rowIndex][colIndex] === "")
       {
         //nếu là ô trống thì làm.
         while (k <= 9)
           {
           if (isOK(rowIndex, colIndex, k)) {
             //nếu đúng thì ghi số đó vào mảng,lưu vào stack
-            a[rowIndex][colIndex] = k;
+            solveSudokuArr[rowIndex][colIndex] = k;
             sudokuStack.push(new StackNode(rowIndex, colIndex, k));
             k=0;
             //kt số tiếp theo:
@@ -220,23 +260,22 @@ var SolveSu = function()
               if (lastNode) {     //kt stack còn k?
                 if (lastNode.value !== 9)     //nếu ô trc khác 9 thì tăng k lên 1 và làm tiếp
                 {
-                  a[rowIndex][colIndex] = ""; //set ô trước đó bằng 0
+                  solveSudokuArr[rowIndex][colIndex] = ""; //set ô trước đó bằng 0
                   rowIndex = lastNode.curRow; //gán lại ô trc đó
                   colIndex = lastNode.curCol;//gán lại ô trước đó
                   k = lastNode.value + 1;     //tăng k lên +1 và giải tiếp
-                  //a[rowIndex][colIndex]="";
                   continue;                   //giải tiếp
                 } else                        // nếu ô trước bằng 9 thì skip ô này. qua ô trước đó nữa tăng k và tiếp tục giải
                 {
                   // debugger;
-                  a[rowIndex][colIndex]="";
+                  solveSudokuArr[rowIndex][colIndex]="";
                   rowIndex = lastNode.curRow;   //gán lại ô trc đó
                   colIndex = lastNode.curCol;   //gán lại ô trc đó
-                  a[rowIndex][colIndex] = "";  //set ô đang xét =0
+                  solveSudokuArr[rowIndex][colIndex] = "";  //set ô đang xét =0
                   lastNode = sudokuStack.pop();  //set ô trước đó bằng 0
                   rowIndex = lastNode.curRow;   //gán lại ô trc đó
                   colIndex = lastNode.curCol;   //gán lại ô trc đó
-                  a[rowIndex][colIndex] = "";  //set ô đang xét =0
+                  solveSudokuArr[rowIndex][colIndex] = "";  //set ô đang xét =0
                   k = lastNode.value + 1;       //tăng k và giải tiếp
                   continue;
                 }
@@ -247,7 +286,7 @@ var SolveSu = function()
                 //  k++;
                 //return 1;
                 //TODO: het stack reset lai tu dau
-                break;
+                return -1;
               }
             }
           }

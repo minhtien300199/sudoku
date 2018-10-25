@@ -7,6 +7,14 @@ var redoButton =function()
     undoStack.push(obj);
     var container = redoSelectedCell.pop();
     undoSelectedCell.push(container);
+    if (Checksudoku1(obj)===1)
+    {
+      container.classList.remove("wrong");
+    }
+    else
+    {
+      container.classList.add("wrong");
+    }
     container.innerHTML=obj.value;
     sudokuArray[obj.RowIndex][obj.ColIndex]=obj.value;
   }
@@ -16,18 +24,39 @@ var undoButton = function() {         //hàm undo.
   if (undoStack!=0)
   {
   var  obj=undoStack.pop();
+  var preobj=undoStack[undoStack.length-1];
+  var row=obj.RowIndex;
+  var col=obj.ColIndex;
     redoStack.push(obj);      //redostack;
     var container=undoSelectedCell.pop();
     redoSelectedCell.push(container);
     if (undoStack.length==0)
     {
-      container.innerHTML="";  
+      container.innerHTML="";
+      sudokuArray[obj.RowIndex][obj.ColIndex]="";
     }
     else 
     {
-      container.innerHTML=obj.preValue; 
+      if (isNaN(obj.preValue)==true)
+      {
+        container.innerHTML=""; 
+        sudokuArray[obj.RowIndex][obj.ColIndex]="";
+      }
+      else 
+      {
+        container.innerHTML=obj.preValue; 
+        sudokuArray[obj.RowIndex][obj.ColIndex]=obj.preValue;
+
+        if (Checksudoku1(preobj)!=1)
+        {
+          container.classList.add("wrong");
+        }
+        else
+        {
+          container.classList.remove("wrong");
+        }
+      }
     }
-    sudokuArray[obj.RowIndex][obj.ColIndex]="";
   }
 };
 var axy;
@@ -76,18 +105,19 @@ var handleTouchPadCellClick = function(innderDiv, index) {      //xử lý nhậ
         (undoStack[undoStack.length - 1].ColIndex !== obj.ColIndex &&
           undoStack[undoStack.length - 1] !== obj.RowIndex)
       ) {
+
         if (Checksudoku1(obj)===1)
         {
           if (classList.value.indexOf("wrong")>0)
             classList.remove("wrong");
-          undoStack.push(obj);
-          undoSelectedCell.push(selectedCell[0]);
         } else 
         {
           //báo sai.
           //if (classList.indexOf("wrong")<0)
           classList.add("wrong");
         }
+        undoStack.push(obj);
+        undoSelectedCell.push(selectedCell[0]);
       } else if (
         undoStack[undoStack.length - 1].ColIndex !== obj.ColIndex ||
         undoStack[undoStack.length - 1].RowIndex !== obj.RowIndex
@@ -96,8 +126,6 @@ var handleTouchPadCellClick = function(innderDiv, index) {      //xử lý nhậ
         {
           if (classList.value.indexOf("wrong")>0)
           classList.remove("wrong");
-          undoStack.push(obj);
-          undoSelectedCell.push(selectedCell[0]);
         }
         else 
         {
@@ -105,13 +133,14 @@ var handleTouchPadCellClick = function(innderDiv, index) {      //xử lý nhậ
           //if (classList.indexOf("wrong")<0)
             classList.add("wrong");
         }
+        undoStack.push(obj);
+        undoSelectedCell.push(selectedCell[0]);
       } else if (undoStack[undoStack.length - 1].value !== obj.value) {
         if (Checksudoku1(obj)===1)
         {
           if (classList.value.indexOf("wrong")>0)
           classList.remove("wrong");
-          undoStack.push(obj);
-          undoSelectedCell.push(selectedCell[0]);
+
         }
         else 
         {
@@ -119,6 +148,8 @@ var handleTouchPadCellClick = function(innderDiv, index) {      //xử lý nhậ
           //if (classList.indexOf("wrong")<0)
           classList.add("wrong");
         }
+        undoStack.push(obj);
+        undoSelectedCell.push(selectedCell[0]);
       } else if (undoStack[undoStack.length - 1].value === obj.value) {
         console.log("duplicate!");
       }

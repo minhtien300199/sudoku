@@ -11,16 +11,12 @@ var Checksudoku = function(ob) {
     max = 9;
   for (colCheck = 0; colCheck < max; colCheck++) {
     if (parsCol !== colCheck && ob.value === sudokuArray[parsRow][colCheck]) {
-      console.log(sudokuArray[parsRow][colCheck]);
-      console.log("Row Duplicated!");
       return false;
     }
   }
   //check hàng dọc.
   for (rowCheck = 0; rowCheck < max; rowCheck++) {
     if (parsRow !== rowCheck && ob.value === sudokuArray[rowCheck][parsCol]) {
-      console.log(sudokuArray[rowCheck][parsCol]);
-      console.log("Colum Duplicated!");
       return false;
     }
   }
@@ -35,13 +31,11 @@ var Checksudoku = function(ob) {
             sudokuArray[tempRow + i][tempCol + j]
           ) === false
         ) {
-          console.log("3x3 Square Duplicated!");
           return false;
         }
       }
     }
   }
-  console.log("No error!");
   return true;
 };
 
@@ -140,7 +134,6 @@ var chuyenvung = function(key) {
       }
       break;
     default:
-      console.log("nhập sai");
       break;
   }
 };

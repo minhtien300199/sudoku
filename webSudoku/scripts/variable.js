@@ -6,10 +6,13 @@ var maxUndoStack = 100;
 var undoStack = [];
 var solveStack = [];
 var sudokuStack = [];
+var redoStack = [];
 var max = 9;
 var cell=[];
 var n=9;
 var solveSudokuArr=[[],[],[],[],[],[],[],[],[]];
+var undoSelectedCell=[];          //biến xóa giao diện.
+var redoSelectedCell=[];          //biến redo giao diện
 var sudokuArray = [
   ["", "", 3, "", 8, "", 9, 6, ""],
   ["", "", "", 1, "", "", "", "", 7],

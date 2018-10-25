@@ -2,36 +2,52 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <title>Code Sudoku</title>
-    <link type="text/css" rel="stylesheet" href="./style.css">
-    <script src="./scripts/Render.js"></script>
-    <script src="./scripts/variable.js"></script>   
-    <script src="./scripts/solveSudoku.js"></script>
-    <script src="./scripts/index.js"></script>
+  <meta charset="utf-8">
+  <title>Code Sudoku</title>
+  <link type="text/css" rel="stylesheet" href="./style.css">
+  <script src="./scripts/Render.js"></script>
+  <script src="./scripts/variable.js"></script>
+  <script src="./scripts/solveSudoku.js"></script>
+  <script src="./scripts/index.js"></script>
 </head>
-<body>
-    <div class="title" ><b><center> Sudoku</center> </b> </div>    
-    <div id="app" ></div>
-    <div id="touchpad" class="hidden"></div>
-    <div id="time"></div>
-    <button id="btn-1" onclick="clearInterval(timerInterval)" ><center>Pause</center></button>
-    <button id="btn-2" onclick="startTimer();" >Start|Continue</button>
-    <button id="btn-3" onclick="stopfunc()">
-        <script>
-            var stopfunc=function(){
-                clearInterval(timerInterval);
-            timer=0;
-            min=0;
-            hour=0;
-            document.getElementById("time").innerHTML="0:0:00";
-            }
-            </script>
-            Reset
-    </button>
-    <button id="undoBtn" onclick="undoButton()">Undo</button>
-    <button id="redoBtn" onclick="redoButton()">Redo</button>
-    <button id="resetBtn" onclick="resetButton()">Reset</button>
-    <div id="drafts"></div>
-</body>
 
+<body>
+  <div class="title"><b>
+      <center> Sudoku</center>
+    </b> </div>
+  <div class="container">
+    <div class="left-menu">
+      <div id="time" class="timer"></div>
+      <div class="left-menu__wrapper">
+        <button id="btn-1" class="btn btn-timer" onclick="clearInterval(timerInterval)">
+          <center>Pause</center>
+        </button>
+        <button id="btn-2" class="btn btn-timer" onclick="startTimer();">Start</button>
+        <button id="btn-3" class="btn btn-timer" onclick="stopfunc()"> Reset
+        </button>
+      </div>
+    </div>
+    <div id="app"></div>
+    <div class="right-menu">
+        <div id="touchpad" class="hidden">
+          </div>
+          <div class="toolbar toolbar-bottom">
+              <button id="undoBtn" class="btn" onclick="undoButton()">Undo</button>
+              <button id="redoBtn" class="btn" onclick="redoButton()">Redo</button>
+              <button id="resetBtn" class="btn" onclick="resetButton()">Reset</button>
+            </div>
+    </div>
+  
+   
+    <!-- <div id="drafts"></div> -->
+  </div>
+  <script>
+    var stopfunc = function () {
+      clearInterval(timerInterval);
+      timer = 0;
+      min = 0;
+      hour = 0;
+      document.getElementById("time").innerHTML = "0:0:00";
+    }
+  </script>
+</body>

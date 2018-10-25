@@ -198,3 +198,26 @@ background:red;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
 }
+#resetBtn{
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    position: absolute;
+    top: 93vh;
+    right: 2vw;
+}
+#resetBtn:hover {background-color: #3e8e41}
+#resetBtn:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}

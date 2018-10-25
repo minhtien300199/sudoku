@@ -1,5 +1,21 @@
+var resetButton= function()
+{
+  //set mọi thứ về 0;
+  while (undoStack.length!=0)
+  {
+    undoButton();
+  }
+  // while (redoStack.length!=0)
+  // {
+  //   redoButton();
+  // }
+  undoStack=[];
+  undoSelectedCell=[];
+  redoStack=[];
+  redoSelectedCell=[];
+};
 
-var redoButton =function()
+var redoButton =function()        //hàm redo
 {
   if (redoStack!=0)
   {

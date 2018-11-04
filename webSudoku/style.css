@@ -40,6 +40,7 @@
   /* border-bottom: 1px solid black; */
   border-left: 1px solid black;
   font-size: 1.5em;
+  margin: 1px;
 }
 .col:last-child {
   border-right: 1px solid black;
@@ -82,7 +83,7 @@
 }
 
 .active {
-  background-color: red;
+  background-color: rgb(177, 248, 183);
   cursor: pointer;
 }
 
@@ -91,7 +92,7 @@
 }
 
 .row .col:hover {
-  background: red;
+  background: rgb(189, 165, 165);
 }
 .hidden {
   visibility: hidden;
@@ -99,7 +100,7 @@
 
 
 .wrong {
-  color: blue;
+  color: rgb(255, 0, 0);
 }
 
 /* #undoBtn {
@@ -190,4 +191,27 @@
   color: white;
   border-radius: 15px;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #00000085;
+  z-index: 10;
+}
+.modal {
+  z-index: 11;
+  width: 50%;
+  height: 50%;
+  background: white;
+  margin: auto;
+  position: fixed;
+  left: calc(50% - 25vw);
+  top: calc(50% - 25vh);
 }

@@ -8,6 +8,7 @@
   <script src="./scripts/Render.js"></script>
   <script src="./scripts/variable.js"></script>
   <script src="./scripts/solveSudoku.js"></script>
+  <script src="./scripts/modal.js"></script>
   <script src="./scripts/index.js"></script>
 </head>
 
@@ -19,7 +20,7 @@
     <div class="left-menu">
       <div id="time" class="timer"></div>
       <div class="left-menu__wrapper">
-        <button id="btn-1" class="btn btn-timer" onclick="clearInterval(timerInterval)">
+        <button id="btn-1" class="btn btn-timer" onclick="Stopbtn()">
           <center>Pause</center>
         </button>
         <button id="btn-2" class="btn btn-timer" onclick="startTimer();">Start</button>
@@ -35,11 +36,16 @@
               <button id="undoBtn" class="btn" onclick="undoButton()">Undo</button>
               <button id="redoBtn" class="btn" onclick="redoButton()">Redo</button>
               <button id="resetBtn" class="btn" onclick="resetButton()">Reset</button>
+              <button id="solveBtn" class="btn" onclick="solveFullMatrix()">Solve</button>
             </div>
     </div>
   
-   
-    <!-- <div id="drafts"></div> -->
+    <div id="drafts"></div>
+    <div class="overlay">
+    <div class="modal">
+      
+    </div>
+  </div>
   </div>
   <script>
     var stopfunc = function () {
@@ -48,6 +54,7 @@
       min = 0;
       hour = 0;
       document.getElementById("time").innerHTML = "0:0:00";
+      timeFlag=0;
     }
   </script>
 </body>

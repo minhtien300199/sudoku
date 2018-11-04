@@ -1,3 +1,42 @@
+var solveFullMatrix =function()
+{
+  var sure=confirm("bạn chắc có muốn solve?");
+  if (sure===true)
+  {
+    SolveSu();    //hàm giải
+    var flag=0;
+    //so sánh 2 ma trận bằng vòng lặp
+    for(var rowIndex=8;rowIndex>=0;rowIndex--)
+    {
+      for (var colIndex=8;colIndex>=0;colIndex--)
+      {
+    //nếu trên ma trận sai hoặc chưa có thì put vào từ bên solvesudokuarr.
+        if (sudokuArray[rowIndex][colIndex]!==solveSudokuArr[rowIndex][colIndex])
+        {
+          var cache=sudokuStack.pop();
+          sudokuArray[rowIndex][colIndex]=cache.value;
+          flag=1; //gắn id =base
+        }
+          //in ra html
+        var popResult=solveStack.pop();
+        if (popResult)
+        {
+          popResult.innerHTML=sudokuArray[rowIndex][colIndex];
+          if (flag===1)
+          {
+            popResult.setAttribute("id", "base");
+            flag=0;
+          }
+        }
+        else
+        {
+          return;
+        }
+      }
+    }  
+  }
+};
+
 var resetButton= function()
 {
   //set mọi thứ về 0;
@@ -82,14 +121,31 @@ var clearSelectedCell = function() {
 var toggleTouchPad = function(showTouchPad, rowIndex, colIndex) {
   // console.log(position);
   var touchPad = document.getElementById("touchpad");
+  //var draftPad = document.getElementById("drafts");
   if (!showTouchPad) {
     touchPad.classList.add("hidden");
+    //draftPad.classList.add("hidden");
   } else {
     touchPad.classList.remove("hidden");
+    //draftPad.classList.remove("hidden");
     //console.log(touchPad.style.left, touchPad.style.top );
   }
 };
 
+var handleDraftCellClick= function(innderDiv)
+{
+  return function() {
+    var rowIndex = selectedCell[0].getAttribute("data-row");
+    var colIndex = selectedCell[0].getAttribute("data-col");
+    for (var i=0;i<9;i++)
+    {
+      var indv =document.createElement("div");
+      indv.setAttribute("class","draftCell");
+      indv.innerHTML=i+1;
+      selectedCell[0].appendChild(indv);
+    }
+  };
+};
 
 var handleTouchPadCellClick = function(innderDiv, index) {      //xử lý nhập từ bảng số
   return function() {
@@ -169,6 +225,8 @@ var handleTouchPadCellClick = function(innderDiv, index) {      //xử lý nhậ
     }
     else 
     {
+      if (value==10)
+      {
       //nhấp vào del thì sẽ kiểm tra có sô ở ô đang nhấp k.
       if (sudokuArray[rowIndex][colIndex]!=="")
       {
@@ -178,12 +236,28 @@ var handleTouchPadCellClick = function(innderDiv, index) {      //xử lý nhậ
         sudokuArray[rowIndex][colIndex]="";
       }
       //nếu có thì xóa khỏi sudokuarray. nếu không thì không làm gì.
+      }
+      else if (value>10)
+      {
+        var cf=confirm("are you really want to solve this cell?");
+        if (cf===true)
+        {
+          SolveSu();
+          sudokuArray[rowIndex][colIndex]=solveSudokuArr[rowIndex][colIndex];
+          selectedCell[0].innerHTML=solveSudokuArr[rowIndex][colIndex];
+          selectedCell[0].setAttribute("id", "base");
+          if (classList.value.indexOf("wrong")>0)
+            classList.remove("wrong");
+            toggleTouchPad(false,rowIndex,colIndex);  
+        }
+      }
     }
   };
 };
 
 var handleSudokuCellClick = function(innerDiv, rowIndex, colIndex) {
   return function() {
+
     var classList = innerDiv.classList;
     // console.log(classList);
     if (selectedCell) {
@@ -217,47 +291,70 @@ var t = new Date();
 var timer = 0;
 var timerInterval = null;
 var min = 0,hour = 0;
+var timeFlag=0;
 var startTimer = function() {
-  timerInterval = setInterval(function() {
-    timer += 1;
-    if (timer === 60) {
-      if (min >= 59) {
-        hour += 1;
-        min = 0;
-      } else if (min < 10) {
-        min += 1;
-        if (timer <= 9) {
-          document.getElementById("time").innerHTML =
-            hour + ":0" + min + ":0" + timer;
-        } else if (timer >= 10) {
-          document.getElementById("time").innerHTML =
-            hour + ":0" + min + ":" + timer;
+  if (timeFlag===0)
+  {
+    timerInterval = setInterval(function() {
+      timer += 1;
+      if (timer === 60) {
+        if (min >= 59) {
+          hour += 1;
+          min = 0;
+        } else if (min < 10) {
+          min += 1;
+          if (timer <= 9) {
+            document.getElementById("time").innerHTML =
+              hour + ":0" + min + ":0" + timer;
+          } else if (timer >= 10) {
+            document.getElementById("time").innerHTML =
+              hour + ":0" + min + ":" + timer;
+          }
+        } else if (min >= 10) {
+          min += 1;
+          if (timer < 10) {
+            document.getElementById("time").innerHTML =
+              hour + ":" + min + ":0" + timer;
+          } else if (timer >= 10) {
+            document.getElementById("time").innerHTML =
+              hour + ":" + min + ":" + timer;
+          }
         }
-      } else if (min >= 10) {
-        min += 1;
-        if (timer < 10) {
-          document.getElementById("time").innerHTML =
-            hour + ":" + min + ":0" + timer;
-        } else if (timer >= 10) {
-          document.getElementById("time").innerHTML =
-            hour + ":" + min + ":" + timer;
-        }
+        timer = 0;
       }
-      timer = 0;
-    }
-    if (timer < 10) {
-      document.getElementById("time").innerHTML =
-        hour + ":" + min + ":0" + timer;
-    } else if (timer >= 10) {
-      document.getElementById("time").innerHTML =
-        hour + ":" + min + ":" + timer;
-    }
-    //console.log(hour+':'+min+':'+timer);
-  }, 1000);
-  // setTimeout(() => {
-  //     clearInterval(timerInterval);
-  // }, 10000);
+      if (timer < 10) {
+        document.getElementById("time").innerHTML =
+          hour + ":" + min + ":0" + timer;
+      } else if (timer >= 10) {
+        document.getElementById("time").innerHTML =
+          hour + ":" + min + ":" + timer;
+      }
+      //console.log(hour+':'+min+':'+timer);
+    }, 1000);
+    // setTimeout(() => {
+    //     clearInterval(timerInterval);
+    // }, 10000);
+  timeFlag=1;
+  }
 };
+
+var Stopbtn=function()
+{
+  if (timeFlag===1)
+  {
+    //clearInterval(timerInterval);
+    clearInterval(timerInterval);
+    timeFlag=2;
+  }
+  else
+  if (timeFlag===2)
+  {
+    timeFlag=0;
+    startTimer();
+    timeFlag=1;
+  }
+};
+
 
 document.addEventListener("DOMContentLoaded", function() {
   var max = 9;
@@ -268,7 +365,6 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 document.addEventListener("click", function(event) {
-  SolveSu();    //hàm giải
   // console.log(event);
   if (
     event.target &&

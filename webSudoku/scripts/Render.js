@@ -36,6 +36,7 @@ var render = function(boardsArray) {
         }
         //nhập ma trận. và xử lý nhập xuất số
         div.appendChild(innerDiv);
+        solveStack.push(innerDiv);
         innerDiv.addEventListener(
         "click",
         handleSudokuCellClick(innerDiv, rowIndex, colIndex)
@@ -47,15 +48,20 @@ var render = function(boardsArray) {
 
 var renderNum = function(max) {
     var container = document.getElementById("touchpad");
-    for (var index = 0; index < 10; index++) {
+    for (var index = 0; index < 11; index++) {
     var innerDiv = document.createElement("div");
     innerDiv.setAttribute("class", "cell " + cellNumberClass);
-    if (index==max)
+    if (index==9)
     {
         innerDiv.innerHTML="Del";
-    } else
+    } else 
     {
+        if (index<max)
         innerDiv.innerHTML = index + 1;
+        else if (index>9)
+        {
+            innerDiv.innerHTML="Solve";
+        }
     }
     innerDiv.addEventListener(
         "click",

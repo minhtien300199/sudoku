@@ -82,7 +82,7 @@
 }
 
 .active {
-  background-color: red;
+  background-color: rgb(177, 248, 183);
   cursor: pointer;
 }
 
@@ -91,7 +91,7 @@
 }
 
 .row .col:hover {
-  background: red;
+  background: rgb(189, 165, 165);
 }
 .hidden {
   visibility: hidden;
@@ -99,7 +99,7 @@
 
 
 .wrong {
-  color: blue;
+  color: rgb(255, 0, 0);
 }
 
 /* #undoBtn {
@@ -190,4 +190,8 @@
   color: white;
   border-radius: 15px;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
 }

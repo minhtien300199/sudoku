@@ -1,3 +1,38 @@
+var solveFullMatrix =function()
+{
+  SolveSu();    //hàm giải
+  var flag=0;
+  //so sánh 2 ma trận bằng vòng lặp
+  for(var rowIndex=8;rowIndex>=0;rowIndex--)
+  {
+    for (var colIndex=8;colIndex>=0;colIndex--)
+    {
+  //nếu trên ma trận sai hoặc chưa có thì put vào từ bên solvesudokuarr.
+      if (sudokuArray[rowIndex][colIndex]!==solveSudokuArr[rowIndex][colIndex])
+      {
+        var cache=sudokuStack.pop();
+        sudokuArray[rowIndex][colIndex]=cache.value;
+        flag=1; //gắn id =base
+      }
+        //in ra html
+      var popResult=solveStack.pop();
+      if (popResult)
+      {
+        popResult.innerHTML=sudokuArray[rowIndex][colIndex];
+        if (flag===1)
+        {
+          popResult.setAttribute("id", "base");
+          flag=0;
+        }
+      }
+      else
+      {
+        return;
+      }
+    }
+  }
+};
+
 var resetButton= function()
 {
   //set mọi thứ về 0;
@@ -169,6 +204,8 @@ var handleTouchPadCellClick = function(innderDiv, index) {      //xử lý nhậ
     }
     else 
     {
+      if (value==10)
+      {
       //nhấp vào del thì sẽ kiểm tra có sô ở ô đang nhấp k.
       if (sudokuArray[rowIndex][colIndex]!=="")
       {
@@ -178,6 +215,16 @@ var handleTouchPadCellClick = function(innderDiv, index) {      //xử lý nhậ
         sudokuArray[rowIndex][colIndex]="";
       }
       //nếu có thì xóa khỏi sudokuarray. nếu không thì không làm gì.
+      }
+      else if (value>10)
+      {
+        SolveSu();
+        sudokuArray[rowIndex][colIndex]=solveSudokuArr[rowIndex][colIndex];
+        selectedCell[0].innerHTML=solveSudokuArr[rowIndex][colIndex];
+        selectedCell[0].setAttribute("id", "base");
+        if (classList.value.indexOf("wrong")>0)
+          classList.remove("wrong");
+      }
     }
   };
 };
@@ -268,7 +315,6 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 document.addEventListener("click", function(event) {
-  SolveSu();    //hàm giải
   // console.log(event);
   if (
     event.target &&

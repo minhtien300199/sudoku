@@ -1,8 +1,0 @@
-﻿  Doccument.cpp
-c:\users\hieun\desktop\github\sudoku\doccument\doccument\doccument.cpp(187): error C3861: 'printSolution': identifier not found
-c:\users\hieun\desktop\github\sudoku\doccument\doccument\doccument.cpp(197): error C2664: 'int feasible(int [][100],int,int,int)': cannot convert argument 1 from 'int [][9]' to 'int [][100]'
-  c:\users\hieun\desktop\github\sudoku\doccument\doccument\doccument.cpp(197): note: Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
-c:\users\hieun\desktop\github\sudoku\doccument\doccument\doccument.cpp(213): error C2664: 'bool docfile(const char [],int [][100],int &)': cannot convert argument 2 from 'int [10][10]' to 'int [][100]'
-  c:\users\hieun\desktop\github\sudoku\doccument\doccument\doccument.cpp(213): note: Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
-c:\users\hieun\desktop\github\sudoku\doccument\doccument\doccument.cpp(215): error C2664: 'void inmt(int [][100],int,int)': cannot convert argument 1 from 'int [10][10]' to 'int [][100]'
-  c:\users\hieun\desktop\github\sudoku\doccument\doccument\doccument.cpp(215): note: Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast

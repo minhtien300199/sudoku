@@ -40,6 +40,7 @@
   /* border-bottom: 1px solid black; */
   border-left: 1px solid black;
   font-size: 1.5em;
+  margin: 1px;
 }
 .col:last-child {
   border-right: 1px solid black;
@@ -123,14 +124,11 @@
 
 #drafts {
   border: 1px solid blue;
-  top: 36vh;
-  left: 0vh;
-  width: 6%;
+  width: 70%;
   height: 60%;
   margin: 10px;
   padding: 12px;
   background-color: white;
-  position: fixed;
   display: flex;
   flex-direction: column;
 }
@@ -194,4 +192,27 @@
   justify-content: center;
   align-self: center;
   align-items: center;
+<<<<<<< HEAD
 }
+=======
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #00000085;
+  z-index: 10;
+}
+.modal {
+  z-index: 11;
+  width: 50%;
+  height: 50%;
+  background: white;
+  margin: auto;
+  position: fixed;
+  left: calc(50% - 25vw);
+  top: calc(50% - 25vh);
+}
+>>>>>>> a8f444a8131e9d1b3833bdcbb65ffa6898ab8860

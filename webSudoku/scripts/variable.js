@@ -13,6 +13,7 @@ var n=9;
 var solveSudokuArr=[[],[],[],[],[],[],[],[],[]];
 var undoSelectedCell=[];          //biến xóa giao diện.
 var redoSelectedCell=[];          //biến redo giao diện
+var markDraftsCell=[];            //lấy địa chỉ của ghi nháp.
 var sudokuArray = [
   ["", "", 3, "", 8, "", 9, 6, ""],
   ["", "", "", 1, "", "", "", "", 7],

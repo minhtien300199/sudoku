@@ -17,20 +17,24 @@ var render = function(boardsArray) {
     for (colIndex = 0; colIndex < max; colIndex++) {
         var innerDiv = document.createElement("div");
         var colClass = "col" + cellNumberClass;
+        var temp;
         innerDiv.setAttribute("data-row", rowIndex);
         innerDiv.setAttribute("data-col", colIndex);
         if ((colIndex + 1) % 3 === 0) {
         innerDiv.setAttribute("class", colClass + " col-even");
+        temp=colClass + " col-even";
         } else {
         if (colIndex === 0) {
             innerDiv.setAttribute("class", colClass + " col-even-2");
+            temp=colClass + " col-even-2";
         } else {
             innerDiv.setAttribute("class", colClass);
+            temp=colClass;
         }
         }
         try {
         innerDiv.innerText = boardsArray[rowIndex][colIndex];
-        if (innerDiv.textContent !== "") innerDiv.setAttribute("id", "base");
+        if (innerDiv.textContent !== "") innerDiv.setAttribute("id","base");
         } catch (ex) {
         console.log(rowIndex, colIndex);
         }
@@ -41,6 +45,7 @@ var render = function(boardsArray) {
         "click",
         handleSudokuCellClick(innerDiv, rowIndex, colIndex)
         );
+        
     }
     container.appendChild(div);
     }
@@ -63,7 +68,7 @@ var renderNum = function(max) {
             innerDiv.innerHTML="Solve";
         }
     }
-    innerDiv.addEventListener(
+    innerDiv.addEventListener(      //tạo event listener
         "click",
         handleTouchPadCellClick(innerDiv, index)
     );
@@ -74,18 +79,49 @@ var renderNum = function(max) {
 var renderDrafts=function(max)         //hàm dựng viết nháp.
 {
 var container=document.getElementById("drafts");
-for (var index=0;index<10;index++)
-{
-    var innderDiv=document.createElement("div");
-    innderDiv.setAttribute("class","draft-num");
-    if (index===max)
+    for (var index=0;index<10;index++)
     {
-    innderDiv.innerHTML="Del";
+        var innderDiv=document.createElement("div");
+        innderDiv.setAttribute("class","cell  cell-number");
+        if (index===max)
+        {
+        innderDiv.innerHTML="Del";
+        }
+        else
+        {
+        innderDiv.innerHTML=index+1;
+        }
+        innderDiv.addEventListener("click",handleDraftCellClick(innderDiv,index));
+        container.appendChild(innderDiv);
     }
-    else
-    {
-    innderDiv.innerHTML=index+1;
-    }
-    container.appendChild(innderDiv);
-}
 };
+
+var renderModal=function(max)
+{
+    var container=document.getElementsByClassName("modal");
+    for (var index=0;index<10;index++)
+    {
+        var innderDiv=document.createElement("div");
+        innderDiv.setAttribute("class","cell  cell-number");
+        if (index===max)
+        {
+        innderDiv.innerHTML="Del";
+        }
+        else
+        {
+        innderDiv.innerHTML=index+1;
+        }
+        //innderDiv.addEventListener("click",handleDraftCellClick(innderDiv,index));
+        container.appendChild(innderDiv);
+    }
+
+};
+//render dom
+document.addEventListener("DOMContentLoaded", function() {
+    var max = 9;
+    copyOfSudokuArr();
+    render(sudokuArray);
+    renderNum(max);
+    renderDrafts(max);
+    //renderModal(max);
+});

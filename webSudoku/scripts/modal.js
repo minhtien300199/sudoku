@@ -10,13 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 function showModal() {
-     //TODO: show modal
+//TODO: show modal
     var overlay = document.getElementsByClassName('overlay')[0];
-
 }
 
 function hideModal(overlay) {
     //TODO: hide modal
-    console.log('hide');
+    console.log(event.target);
+    if (!event.target.classList.contains("modal"))
     overlay.classList.add('hidden');
 }

@@ -128,7 +128,6 @@ var createDraftsBlank = function(index) {
         var indivCol = document.createElement("div");
         indivCol.setAttribute("class", "cell-drafts");
         indivCol.setAttribute("colPos", j);
-        indivCol.innerHTML = i + j;
         indivRow.appendChild(indivCol);
       }
       container.append(indivRow);
@@ -136,10 +135,7 @@ var createDraftsBlank = function(index) {
   } else {
     if (container.classList.value.indexOf("mark") > 0) {
       if (container.hasChildNodes() == true) {
-        for (var i = 0; i < 3; i++)
-          container.removeChild(container.childNodes[0]);
-        container.classList.remove("mark");
-        return createDraftsBlank();
+        //nếu đã tạo rồi thì để yên.
       }
     }
   }
@@ -151,23 +147,32 @@ var handleDraftCellClick = function(innderDiv, index) {
     var rowIndex = selectedCell[0].getAttribute("data-row");
     var colIndex = selectedCell[0].getAttribute("data-col");
     //nếu số vừa nhập thỏa 1 div nào đó:
-    if (selectedCell[0].getAttribute("pos") == index)
-      console.log(selectedCell[0]);
+    // if (selectedCell[0].getAttribute("pos") == index)
+    //   console.log(selectedCell[0]);
     var value = index + 1;
-    // if (value<10)
-    // {
-    //   selectedCell[0].innerHTML=value;
-    // }
-    // else if (value==10)
-    // {
-    // //nhấp vào del thì sẽ kiểm tra có sô ở ô đang nhấp k.
-    //   if (sudokuArray[rowIndex][colIndex]=="")
-    //   {
-    //     //xóa innerhtml
-    //     selectedCell[0].innerHTML="";
-    //     //xóa trong mảng.
-    //   }
-    // }
+    if (value<10)
+    {
+      var row=Math.floor(parseInt(index)/3);
+      var col=parseInt(index)%3;
+      if (parseInt(selectedCell[0].children[row].children[col].innerText)==value)
+      {
+        selectedCell[0].children[row].children[col].innerHTML="";
+      } 
+      else
+      {
+        selectedCell[0].children[row].children[col].innerHTML=value;
+      }
+    }
+    else if (value==10)
+    {
+    //nhấp vào del thì sẽ kiểm tra có sô ở ô đang nhấp k.
+      if (sudokuArray[rowIndex][colIndex]=="")
+      {
+        //xóa innerhtml
+        selectedCell[0].innerHTML="";
+        //xóa trong mảng.
+      }
+    }
   };
 };
 

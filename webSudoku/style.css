@@ -41,6 +41,7 @@
   border-left: 1px solid black;
   font-size: 1.5em;
   margin: 1px;
+  flex-direction: column;
 }
 .col:last-child {
   border-right: 1px solid black;
@@ -76,6 +77,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  justify-content: space-evenly;
 }
 .cell-number:hover {
   cursor: pointer;
@@ -212,3 +214,15 @@
   left: calc(50% - 25vw);
   top: calc(50% - 25vh);
 }*/
+.row-drafts{
+  display: flex;
+  flex-direction: row;
+
+}
+.cell-drafts{
+  font-size:18px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  letter-spacing: 0.5em;
+}

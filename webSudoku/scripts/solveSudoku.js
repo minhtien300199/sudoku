@@ -2,42 +2,6 @@
  *      giải thuật.
  */
 var key, tempCol, tempRow;
-var Checksudoku = function(ob) {
-  //check hàng ngang.
-  var parsRow = parseInt(ob.RowIndex);
-  var parsCol = parseInt(ob.ColIndex);
-  var colCheck,
-    rowCheck,
-    max = 9;
-  for (colCheck = 0; colCheck < max; colCheck++) {
-    if (parsCol !== colCheck && ob.value === sudokuArray[parsRow][colCheck]) {
-      return false;
-    }
-  }
-  //check hàng dọc.
-  for (rowCheck = 0; rowCheck < max; rowCheck++) {
-    if (parsRow !== rowCheck && ob.value === sudokuArray[rowCheck][parsCol]) {
-      return false;
-    }
-  }
-  //kt ô 3x3:
-  for (var i = -1; i <= 1; i++) {
-    for (var j = -1; j <= 1; j++) {
-      if (sudokuArray[tempRow + i][tempCol + j] > 0) {
-        if (
-          sudokuSearch(
-            tempCol,
-            tempRow,
-            sudokuArray[tempRow + i][tempCol + j]
-          ) === false
-        ) {
-          return false;
-        }
-      }
-    }
-  }
-  return true;
-};
 
 var Checksudoku1 = function(ob) {
   //check hàng ngang.
@@ -70,124 +34,6 @@ var Checksudoku1 = function(ob) {
   return 1;
 };
 
-
-var chuyenvung = function(key) {
-  switch (key) {
-    case 0:
-      {
-        tempRow = 1;
-        tempCol = 1;
-      }
-      break;
-    case 1:
-      {
-        tempRow = 1;
-        tempCol = 4;
-      }
-
-      break;
-    case 2:
-      {
-        tempRow = 1;
-        tempCol = 7;
-      }
-
-      break;
-    case 3:
-      {
-        tempCol = 1;
-        tempRow = 4;
-      }
-
-      break;
-    case 4:
-      {
-        tempCol = 4;
-        tempRow = 4;
-      }
-
-      break;
-    case 5:
-      {
-        tempCol = 7;
-        tempRow = 4;
-      }
-      break;
-    case 6:
-      {
-        tempRow = 7;
-        tempCol = 1;
-      }
-
-      break;
-    case 7:
-      {
-        tempRow = 7;
-        tempCol = 4;
-      }
-
-      break;
-    case 8:
-      {
-        tempRow = 7;
-        tempCol = 7;
-      }
-      break;
-    default:
-      break;
-  }
-};
-
-var ktixj = function(row, col) {
-  for (var i = -1; i <= 1; i++) {
-    for (var j = -1; j <= 1; j++) {
-      if (row + i === 1) {
-        if (col + j == 1) {
-          key = 0;
-          return chuyenvung(key);
-        } else if (col + j === 4) {
-          key = 1;
-          return chuyenvung(key);
-        } else if (col + j === 7) {
-          key = 2;
-          return chuyenvung(key);
-        }
-      } else if (row + i === 4) {
-        if (col + j === 1) {
-          key = 3;
-          return chuyenvung(key);
-        } else if (col + j === 4) {
-          key = 4;
-          return chuyenvung(key);
-        } else if (col + j === 7) {
-          key = 5;
-          return chuyenvung(key);
-        }
-      } else if (row + i === 7) {
-        if (col + j === 1) {
-          key = 6;
-          return chuyenvung(key);
-        } else if (col + j === 4) {
-          key = 7;
-          return chuyenvung(key);
-        } else if (col + j === 7) {
-          key = 8;
-          return chuyenvung(key);
-        }
-      }
-    }
-  }
-};
-var sudokuSearch = function(col, row, mark) {
-  var dem = 0;
-  for (var i = -1; i <= 1; i++)
-    for (var j = -1; j <= 1; j++) {
-      if (mark == sudokuArray[row + i][col + j]) dem++;
-    }
-  if (dem == 1) return true;
-  else return false;
-};
-
 var copyOfSudokuArr=function()
 {
   for (var rowIndex=0;rowIndex<max;rowIndex++)
@@ -214,7 +60,83 @@ var isOK = function(i, j, x)          //kt ma trận.
     for (t = j - tmpY; t <= j - tmpY + 2; t++) if (solveSudokuArr[k][t] === x) return 0;
   return 1;
 };
+var checkCell = function(i, j, x)          //kt ma trận.
+{
+  var k, t;
+  var tmpX, tmpY;
+  //kiem tra hang thu i da co cai nao trung chua
+  for (k = 0; k < max; k++) if (sudokuArray[i][k] === x) return 0;
+  //kiem tra cot thu j da co cai nao trung chua
+  for (k = 0; k < max; k++) if (sudokuArray[k][j] === x) return 0;
+  //kiem tra trong o 3x3
+  tmpX = i % 3;
+  tmpY = j % 3;
+  for (k = i - tmpX; k <= i - tmpX + 2; k++)
+    for (t = j - tmpY; t <= j - tmpY + 2; t++) if (sudokuArray[k][t] === x) return 0;
+  return 1;
+};
 
+var checkDraftCell = function(i, j, x)          //kt ma trận.
+{
+  var k, t;
+  var tmpX, tmpY;
+  //kiểm tra dòng coi có cell nào viết nháp k
+  var row = parseInt(selectedCell[0].getAttribute("data-row"));
+  var col = parseInt(selectedCell[0].getAttribute("data-col"));
+  var container = document.getElementById("app");
+  var tempIndex = x-1;
+for (k = 0; k < max; k++)
+    if (sudokuArray[i][k] === "")   //ô đó không có số
+    {
+      if (container.childNodes[row].childNodes[k].hasChildNodes()===true)    //đây là có draft.
+      {
+        var RowIndex=Math.floor(parseInt(tempIndex)/3);
+        var ColIndex=parseInt(tempIndex)%3;
+        //check value: số vừa ghi có số draft ko.
+        if (parseInt(container.childNodes[row].childNodes[k].childNodes[RowIndex].childNodes[ColIndex].textContent)===x)
+        {
+          container.childNodes[row].childNodes[k].childNodes[RowIndex].childNodes[ColIndex].innerHTML="";   //xóa số drafts
+        }
+      }
+    }
+  //kiểm tra cột nháp.
+  for (k = 0; k < max; k++)
+    if (sudokuArray[k][j] === "")   //ô đó không có số
+    {
+      if (container.childNodes[k].childNodes[col].hasChildNodes()===true)    //đây là có draft.
+      {
+        tempIndex = x-1;
+        RowIndex=Math.floor(parseInt(tempIndex)/3);
+        ColIndex=parseInt(tempIndex)%3;
+        //check value: số vừa ghi có số draft ko.
+        if (parseInt(container.childNodes[k].childNodes[col].childNodes[RowIndex].childNodes[ColIndex].textContent)===x)
+        {
+          container.childNodes[k].childNodes[col].childNodes[RowIndex].childNodes[ColIndex].innerHTML="";   //xóa số drafts
+        }
+      }
+    }
+  //kiem tra trong o 3x3
+  tmpX = i % 3;
+  tmpY = j % 3;
+  for (k = i - tmpX; k <= i - tmpX + 2; k++)
+    for (t = j - tmpY; t <= j - tmpY + 2; t++) 
+    {
+      if (sudokuArray[k][j] === "")       //nếu không có số
+      {
+        if (container.childNodes[k].childNodes[t].hasChildNodes()===true) //nếu có drafts
+        {
+          tempIndex = x-1;
+          RowIndex=Math.floor(parseInt(tempIndex)/3);
+          ColIndex=parseInt(tempIndex)%3;
+          if (parseInt(container.childNodes[k].childNodes[t].childNodes[RowIndex].childNodes[ColIndex].textContent)===x)
+        {
+          container.childNodes[k].childNodes[t].childNodes[RowIndex].childNodes[ColIndex].innerHTML="";   //xóa số drafts
+        }
+        }
+      }
+    }
+  return 1;
+};
 
 //hàm giải
 var SolveSu = function() 

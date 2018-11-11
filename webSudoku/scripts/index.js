@@ -117,12 +117,15 @@ var toggleTouchPad = function(showTouchPad, rowIndex, colIndex) {
 var createDraftsBlank = function(index) {
   var container = selectedCell[0];
   //kt nếu có  mark rồi hay chưa
-  if (container.classList.value.indexOf("mark") < 0) {
-    //nếu chưa có mark thì gán
-    container.classList.add("mark");
+  if (container.hasChildNodes() != true) {
+    if (container.classList.value.indexOf("wrong") > 0) //nếu có tag wrong thì gỡ ra
+      container.classList.remove("wrong");
+    //nếu chưa có con  thì tạo
+    //container.classList.add("mark");
     //tạo 9 ô.
     for (var i = 0; i < 3; i++) {
       var indivRow = document.createElement("div");
+      indivRow.setAttribute("class","row-drafts");
       indivRow.setAttribute("rowPos", i);
       for (var j = 0; j < 3; j++) {
         var indivCol = document.createElement("div");
@@ -132,20 +135,20 @@ var createDraftsBlank = function(index) {
       }
       container.append(indivRow);
     }
-  } else {
-    if (container.classList.value.indexOf("mark") > 0) {
-      if (container.hasChildNodes() == true) {
+  } else 
+    {
+      if (container.hasChildNodes() === true) {
         //nếu đã tạo rồi thì để yên.
+        return 0;
       }
     }
-  }
 };
 
 var handleDraftCellClick = function(innderDiv, index) {
   return function() {
-    createDraftsBlank();
-    var rowIndex = selectedCell[0].getAttribute("data-row");
-    var colIndex = selectedCell[0].getAttribute("data-col");
+    createDraftsBlank(index);
+    var rowIndex = parseInt(selectedCell[0].getAttribute("data-row"));
+    var colIndex = parseInt(selectedCell[0].getAttribute("data-col"));
     //nếu số vừa nhập thỏa 1 div nào đó:
     // if (selectedCell[0].getAttribute("pos") == index)
     //   console.log(selectedCell[0]);
@@ -154,16 +157,17 @@ var handleDraftCellClick = function(innderDiv, index) {
     {
       var row=Math.floor(parseInt(index)/3);
       var col=parseInt(index)%3;
-      if (parseInt(selectedCell[0].children[row].children[col].innerText)==value)
+      if (parseInt(selectedCell[0].children[row].children[col].innerText)==value) //nếu mà ô đó có số thì xóa.
       {
         selectedCell[0].children[row].children[col].innerHTML="";
-      } 
+      }
       else
       {
-        selectedCell[0].children[row].children[col].innerHTML=value;
+          if (checkCell(rowIndex,colIndex,value)==1) //nếu thỏa thì cho ghi
+          selectedCell[0].children[row].children[col].innerHTML=value;
       }
     }
-    else if (value==10)
+    else if (value==10)   //nút xóa
     {
     //nhấp vào del thì sẽ kiểm tra có sô ở ô đang nhấp k.
       if (sudokuArray[rowIndex][colIndex]=="")
@@ -192,19 +196,26 @@ var handleTouchPadCellClick = function(innderDiv, index) {
       var prevValue = parseInt(selectedCell[0].innerText);
       selectedCell[0].innerHTML = value;
       sudokuArray[rowIndex][colIndex] = value;
-      var obj = {
+      var obj = {           //tạo object để lưu vào stack
         RowIndex: rowIndex,
         ColIndex: colIndex,
         value: value,
         preValue: prevValue
       };
+      if (Checksudoku1(obj) === 1)
+      checkDraftCell(parseInt(obj.RowIndex),parseInt(obj.ColIndex),value);
+      
       if (
         undoStack.length === 0 ||
         (undoStack[undoStack.length - 1].ColIndex !== obj.ColIndex &&
           undoStack[undoStack.length - 1] !== obj.RowIndex)
       ) {
-        if (Checksudoku1(obj) === 1) {
-          if (classList.value.indexOf("wrong") > 0) classList.remove("wrong");
+        if (Checksudoku1(obj) === 1)  //kt nếu thỏa 
+        {
+          if (classList.value.indexOf("wrong") > 0)
+          {
+            classList.remove("wrong");
+          }
         } else {
           //báo sai.
           //if (classList.indexOf("wrong")<0)
@@ -217,7 +228,10 @@ var handleTouchPadCellClick = function(innderDiv, index) {
         undoStack[undoStack.length - 1].RowIndex !== obj.RowIndex
       ) {
         if (Checksudoku1(obj) === 1) {
-          if (classList.value.indexOf("wrong") > 0) classList.remove("wrong");
+          if (classList.value.indexOf("wrong") > 0) 
+          {
+            classList.remove("wrong");
+          }
         } else {
           //báo sai.
           //if (classList.indexOf("wrong")<0)
@@ -227,7 +241,10 @@ var handleTouchPadCellClick = function(innderDiv, index) {
         undoSelectedCell.push(selectedCell[0]);
       } else if (undoStack[undoStack.length - 1].value !== obj.value) {
         if (Checksudoku1(obj) === 1) {
-          if (classList.value.indexOf("wrong") > 0) classList.remove("wrong");
+          if (classList.value.indexOf("wrong") > 0) 
+          {
+            classList.remove("wrong");
+          }
         } else {
           //báo sai.
           //if (classList.indexOf("wrong")<0)
@@ -371,7 +388,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (
       event.target &&
       (event.target.classList.contains("col") ||
-        event.target.classList.contains("cell"))
+        event.target.classList.contains("cell"))||event.target.classList.contains("cell-drafts")
     ) {
       // ko lam gi het
       // event.preventDefault();

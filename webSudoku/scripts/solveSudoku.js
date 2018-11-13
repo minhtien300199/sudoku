@@ -1,4 +1,4 @@
-/**************************************************************************************************************
+﻿/**************************************************************************************************************
  *      giải thuật.
  */
 var key, tempCol, tempRow;
@@ -121,7 +121,7 @@ for (k = 0; k < max; k++)
   for (k = i - tmpX; k <= i - tmpX + 2; k++)
     for (t = j - tmpY; t <= j - tmpY + 2; t++) 
     {
-      if (sudokuArray[k][j] === "")       //nếu không có số
+      if (sudokuArray[k][t] === "")       //nếu không có số
       {
         if (container.childNodes[k].childNodes[t].hasChildNodes()===true) //nếu có drafts
         {

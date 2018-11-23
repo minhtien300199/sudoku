@@ -89,17 +89,8 @@ var renderDrafts = function(
   }
 };
 
-// var renderModal = function(max) {
-//   var container = document.getElementsByClassName("modal");
-//   for (var index = 0; index < 10; index++) {
-//     var innderDiv = document.createElement("div");
-//     innderDiv.setAttribute("class", "cell  cell-number");
-//     if (index === max) {
-//       innderDiv.innerHTML = "Del";
-//     } else {
-//       innderDiv.innerHTML = index + 1;
-//     }
-//     innderDiv.addEventListener("click",handleDraftCellClick(innderDiv,index));
-//     //container.appendChild(innderDiv);
-//   }
-// };
+var renderModal = function(max) {
+  var container = document.getElementById("btn-start");
+  
+  container.appendChild(innerDiv);
+};

@@ -19,4 +19,5 @@ function hideModal(overlay) {
     console.log(event.target);
     if (!event.target.classList.contains("modal"))
     overlay.classList.add('hidden');
+    startTimer();
 }

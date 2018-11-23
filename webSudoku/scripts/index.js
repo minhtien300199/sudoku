@@ -36,13 +36,29 @@ var solveFullMatrix = function() {
 
 var resetButton = function() {
   //set mọi thứ về 0;
+
   while (undoStack.length != 0) {
     undoButton();
   }
+
   undoStack = [];
   undoSelectedCell = [];
   redoStack = [];
   redoSelectedCell = [];
+  //xóa nháp
+  var container= document.getElementById("app");
+  for (var row=0;row<9;row++)
+    for (var col=0;col<9;col++)
+    {
+      if (sudokuArray[row][col]=="")
+      {
+        if (container.childNodes[row].childNodes[col].hasChildNodes()==true  )  //nghĩa là có con
+        {
+          container.childNodes[row].childNodes[col].innerHTML="";
+        }
+      }
+
+    }
 };
 
 var redoButton = function() //hàm redo
@@ -157,6 +173,8 @@ var handleDraftCellClick = function(innderDiv, index) {
     {
       var row=Math.floor(parseInt(index)/3);
       var col=parseInt(index)%3;
+      // if (selectedCell[0].textContent!="") return 0;
+      if (sudokuArray[rowIndex][colIndex]!="") return 0;
       if (parseInt(selectedCell[0].children[row].children[col].innerText)==value) //nếu mà ô đó có số thì xóa.
       {
         selectedCell[0].children[row].children[col].innerHTML="";

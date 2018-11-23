@@ -1,12 +1,12 @@
-// document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
 
-//     var overlay = document.getElementsByClassName('overlay')[0];
-//     console.log(overlay);
-//     overlay.addEventListener('click', function(event) {
-//         hideModal(this);
-//     });
+    var overlay = document.getElementsByClassName('overlay')[0];
+    console.log(overlay);
+    overlay.addEventListener('click', function(event) {
+        hideModal(this);
+    });
 
-// });
+});
 
 
 function showModal() {
@@ -19,4 +19,5 @@ function hideModal(overlay) {
     console.log(event.target);
     if (!event.target.classList.contains("modal"))
     overlay.classList.add('hidden');
+    startTimer();
 }

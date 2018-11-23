@@ -195,7 +195,7 @@
   align-self: center;
   align-items: center;
 }
-/*.overlay {
+.overlay {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -213,7 +213,7 @@
   position: fixed;
   left: calc(50% - 25vw);
   top: calc(50% - 25vh);
-}*/
+}
 .row-drafts{
   display: flex;
   flex-direction: row;
@@ -225,4 +225,16 @@
   display: flex;
   flex-direction: column;
   letter-spacing: 0.5em;
+}
+
+.center-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.startgame{
+  width: 90%;
 }

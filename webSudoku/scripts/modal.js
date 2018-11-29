@@ -12,12 +12,16 @@ document.addEventListener('DOMContentLoaded', function() {
 function showModal() {
 //TODO: show modal
     var overlay = document.getElementsByClassName('overlay')[0];
+    overlay.classList.remove('hidden');
 }
 
 function hideModal(overlay) {
     //TODO: hide modal
     console.log(event.target);
-    if (!event.target.classList.contains("modal"))
-    overlay.classList.add('hidden');
-    startTimer();
+    if (event.target.classList.contains("startgame"))
+    {
+        overlay.classList.add('hidden');
+        startTimer();
+    }
+
 }

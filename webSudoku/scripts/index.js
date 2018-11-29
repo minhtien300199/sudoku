@@ -1,3 +1,18 @@
+//https://reverent-edison-58be06.netlify.com/
+var Iswinner = function(){
+  SolveSu();
+  for (var index = 0; index < sudokuArray.length; index++) {
+      for(var j=0;j<9;j++)
+      {
+        if (sudokuArray[index][j]!=solveSudokuArr[index][j])
+        {
+          return;
+        }
+      }
+  }
+  //TODO: dk thắng:
+  console.log("winner!");
+};
 var solveFullMatrix = function() {
   resetButton(); //
   var sure = confirm("bạn chắc có muốn solve?");
@@ -162,6 +177,7 @@ var createDraftsBlank = function(index) {
 
 var handleDraftCellClick = function(innderDiv, index) {
   return function() {
+
     createDraftsBlank(index);
     var rowIndex = parseInt(selectedCell[0].getAttribute("data-row"));
     var colIndex = parseInt(selectedCell[0].getAttribute("data-col"));
@@ -214,6 +230,7 @@ var handleTouchPadCellClick = function(innderDiv, index) {
       var prevValue = parseInt(selectedCell[0].innerText);
       selectedCell[0].innerHTML = value;
       sudokuArray[rowIndex][colIndex] = value;
+      Iswinner();
       var obj = {           //tạo object để lưu vào stack
         RowIndex: rowIndex,
         ColIndex: colIndex,
@@ -383,9 +400,9 @@ var startTimer = function() {
 
 var Stopbtn = function() {
   if (timeFlag === 1) {
-    //clearInterval(timerInterval);
     clearInterval(timerInterval);
     timeFlag = 2;
+    //var direct= document.getElementsByClassName("ovl").classList;
   } else if (timeFlag === 2) {
     timeFlag = 0;
     startTimer();

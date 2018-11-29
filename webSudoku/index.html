@@ -23,8 +23,8 @@
         <button id="btn-1" class="btn btn-timer" onclick="Stopbtn()">
           <center>Pause</center>
         </button>
-        <button id="btn-2" class="btn btn-timer" onclick="startTimer();">Start</button>
-        <button id="btn-3" class="btn btn-timer" onclick="stopfunc()"> Reset
+        <!-- <button id="btn-2" class="btn btn-timer" onclick="startTimer();">Start</button> -->
+        <button id="btn-3" class="btn btn-timer" onclick="stopfunc()"> New Game
         </button>
         <div id="drafts" class="hidden"></div>
       </div>
@@ -41,22 +41,33 @@
             </div>
     </div>
   
-    <div class="overlay">
+    <div class="overlay hidden">
     <div class="modal">
       <div class="center-wrapper">
-        <button id="btn-start" class="startgame btn" onclick="hideModal(this)">START</button>
+        <button id="btn-start" class="startgame btn">START</button>
       </div>
     </div>
   </div>
+    <div class="ovl resume hidden" >
+      <div class="modal Pause"></div>
+    </div>
   </div>
   <script>
     var stopfunc = function () {
-      clearInterval(timerInterval);
-      timer = 0;
-      min = 0;
-      hour = 0;
-      document.getElementById("time").innerHTML = "0:0:00";
-      timeFlag=0;
+
+      var sure = confirm("bạn chắc có muốn chơi lại?");
+    if (sure === true) 
+      {
+        clearInterval(timerInterval);
+        timer = 0;
+        min = 0;
+        hour = 0;
+        document.getElementById("time").innerHTML = "0:0:00";
+        timeFlag=0;
+        resetButton();
+        showModal();
+        
+      }
     }
   </script>
 </body>

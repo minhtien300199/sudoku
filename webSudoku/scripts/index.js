@@ -398,15 +398,17 @@ var startTimer = function() {
   }
 };
 
-var Stopbtn = function() {
+var Stopbtn = function() {    //nút pause
+  
   if (timeFlag === 1) {
     clearInterval(timerInterval);
     timeFlag = 2;
-    //var direct= document.getElementsByClassName("ovl").classList;
+    var ToggleModal= document.getElementsByClassName("ovl")[0].classList.remove("hidden");
   } else if (timeFlag === 2) {
     timeFlag = 0;
     startTimer();
     timeFlag = 1;
+    var ToggleModal= document.getElementsByClassName("ovl")[0].classList.add("hidden");
   }
 };
 //render dom

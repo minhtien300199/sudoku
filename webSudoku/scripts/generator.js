@@ -24,17 +24,7 @@ var operator = function(i, j, x)          //kt ma trận.
     for (t = j - tmpY; t <= j - tmpY + 2; t++) if (matrix[k][t] === x) return 0;
   return 1;
 };
-var generate=function()
-{
-    
-    for (var i=0;i<9;i++)
-        for(var j=0;j<9;j++)
-        {
-           var sample = RanNum();
-           if(operator(i,j,sample)==1)
-           matrix[i][j]=sample;
-        }
-}
-generate();
+matrix[4][4]=RanNum();
 sudokuArray=matrix;
-//SolveSu();
+SolveSu();
+matrix= sudokuArray;

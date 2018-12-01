@@ -25,6 +25,23 @@ var operator = function(i, j, x)          //kt ma trận.
   return 1;
 };
 matrix[4][4]=RanNum();
+matrix [0][0]= RanNum();
+matrix [8][8]=RanNum();
 sudokuArray=matrix;
 SolveSu();
 matrix= sudokuArray;
+var tempp= 1;
+var delcel;
+var delrow;
+//Example : level easy is 42
+var level = 42;
+while (tempp!==level)
+{ delcel= RanNum();
+  delrow= RanNum();
+  if(matrix[delrow][delcel] !=="")
+  {
+    matrix[delrow][delcel]="";
+    tempp++;
+  }
+ 
+}

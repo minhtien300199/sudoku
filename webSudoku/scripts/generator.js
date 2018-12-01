@@ -29,19 +29,15 @@ matrix [0][0]= RanNum();
 matrix [8][8]=RanNum();
 sudokuArray=matrix;
 SolveSu();
-matrix= sudokuArray;
 var tempp= 1;
 var delcel;
 var delrow;
 //Example : level easy is 42
 var level = 42;
-while (tempp!==level)
-{ delcel= RanNum();
-  delrow= RanNum();
-  if(matrix[delrow][delcel] !=="")
-  {
-    matrix[delrow][delcel]="";
-    tempp++;
-  }
- 
-}
+//while (tempp!==level)
+//{ delcol= RanNum();
+ // delrow= RanNum();
+ //matrix[delrow][delcol]="";
+//}
+//sudokuArray=matrix;
+// Cái này t còn tính : nếu mà nó Random trùng với cái ô mà nó random lần trước thì cho nó random laik, tránh trường hợp bị trùng.

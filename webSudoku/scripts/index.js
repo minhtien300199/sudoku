@@ -11,6 +11,7 @@ var isWinner = function () {
   //TODO: dk thắng:
   console.log("winner!");
 };
+
 var solveFullMatrix = function () {
   resetButton(); //
   var sure = confirm("bạn chắc có muốn solve?");
@@ -25,7 +26,6 @@ var solveFullMatrix = function () {
           sudokuArray[rowIndex][colIndex] !== solveSudokuArr[rowIndex][colIndex]
         ) {
           var cache = sudokuStack.pop();
-
           sudokuArray[rowIndex][colIndex] = cache.value;
           flag = 1; //gắn id =base
         }
@@ -68,7 +68,6 @@ var resetButton = function () {
           container.childNodes[row].childNodes[col].innerHTML = "";
         }
       }
-
     }
 };
 
@@ -385,19 +384,37 @@ var startTimer = function () {
   }
 };
 
-var Stopbtn = function () { //nút pause
+var stopBtn = function () { //nút pause
+  var ToggleModal = document.getElementsByClassName("ovl")[0];
 
   if (timeFlag === 1) {
     clearInterval(timerInterval);
     timeFlag = 2;
-    var ToggleModal = document.getElementsByClassName("ovl")[0].classList.remove("hidden");
+    ToggleModal.classList.remove("hidden");
   } else if (timeFlag === 2) {
     timeFlag = 0;
     startTimer();
     timeFlag = 1;
-    var ToggleModal = document.getElementsByClassName("ovl")[0].classList.add("hidden");
+    ToggleModal.classList.add("hidden");
   }
 };
+
+
+
+var restartBtn = function () {
+  var sure = confirm("bạn chắc có muốn chơi lại?");
+  if (sure === true) {
+    clearInterval(timerInterval);
+    timer = 0;
+    min = 0;
+    hour = 0;
+    document.getElementById("time").innerHTML = "0:0:00";
+    timeFlag = 0;
+    resetButton();
+    showModal();
+  }
+};
+
 //render dom
 document.addEventListener("DOMContentLoaded", function () {
   var max = 9;
@@ -422,5 +439,14 @@ document.addEventListener("DOMContentLoaded", function () {
       clearSelectedCell();
     }
   });
+
+  document.getElementById('redoBtn').addEventListener('click', redoButton);
+  document.getElementById('undoBtn').addEventListener('click', undoButton);
+  document.getElementById('resetBtn').addEventListener('click', resetButton);
+  document.getElementById('solveBtn').addEventListener('click', solveFullMatrix);
+
+  document.getElementById('stopBtn').addEventListener('click', stopBtn);
+  document.getElementById('pauseBtn').addEventListener('click', stopBtn);
+  document.getElementById('restartBtn').addEventListener('click', restartBtn);
 
 });

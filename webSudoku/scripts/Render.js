@@ -1,4 +1,4 @@
-var render = function(boardsArray) {
+var render = function (boardsArray) {
   // console.log(boardsArray);
   var container = document.getElementById("app");
   var max = 9;
@@ -50,7 +50,7 @@ var render = function(boardsArray) {
   }
 };
 
-var renderNum = function(max) {
+var renderNum = function (max) {
   var container = document.getElementById("touchpad");
   for (var index = 0; index < 11; index++) {
     var innerDiv = document.createElement("div");
@@ -72,7 +72,7 @@ var renderNum = function(max) {
   }
 };
 
-var renderDrafts = function(
+var renderDrafts = function (
   max //hàm dựng viết nháp.
 ) {
   var container = document.getElementById("drafts");
@@ -89,8 +89,8 @@ var renderDrafts = function(
   }
 };
 
-var renderModal = function(max) {
+var renderModal = function (max) {
   var container = document.getElementById("btn-start");
-  
+
   container.appendChild(innerDiv);
 };

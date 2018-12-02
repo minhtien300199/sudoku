@@ -5,15 +5,13 @@
   <meta charset="utf-8">
   <title>Code Sudoku</title>
   <link type="text/css" rel="stylesheet" href="./style.css">
-  <script src="./scripts/Render.js"></script>
+  <script src="./scripts/render.js"></script>
   <script src="./scripts/variable.js"></script>
   <script src="./scripts/level.js"></script>
   <script src="./scripts/solveSudoku.js"></script>
   <script src="./scripts/generator.js"></script>
   <script src="./scripts/modal.js"></script>
   <script src="./scripts/index.js"></script>
-
-
 </head>
 
 <body>
@@ -24,63 +22,45 @@
     <div class="left-menu">
       <div id="time" class="timer"></div>
       <div class="left-menu__wrapper">
-        <button id="btn-1" class="btn btn-timer" onclick="Stopbtn()">
+        <button id="pauseBtn" class="btn btn-timer">
           <center>Pause</center>
         </button>
         <!-- <button id="btn-2" class="btn btn-timer" onclick="startTimer();">Start</button> -->
-        <button id="btn-3" class="btn btn-timer" onclick="stopfunc()"> New Game
+        <button id="restartBtn" class="btn btn-timer"> New Game
         </button>
         <div id="drafts" class="hidden"></div>
       </div>
     </div>
     <div id="app"></div>
     <div class="right-menu">
-        <div id="touchpad" class="hidden">
-          </div>
-          <div class="toolbar toolbar-bottom">
-              <button id="undoBtn" class="btn" onclick="undoButton()">Undo</button>
-              <button id="redoBtn" class="btn" onclick="redoButton()">Redo</button>
-              <button id="resetBtn" class="btn" onclick="resetButton()">Reset</button>
-              <button id="solveBtn" class="btn" onclick="solveFullMatrix()">Solve</button>
-            </div>
+      <div id="touchpad" class="hidden">
+      </div>
+      <div class="toolbar toolbar-bottom">
+        <button id="undoBtn" class="btn">Undo</button>
+        <button id="redoBtn" class="btn">Redo</button>
+        <button id="resetBtn" class="btn">Reset</button>
+        <button id="solveBtn" class="btn">Solve</button>
+      </div>
     </div>
-  
+
     <div class="overlay">
-    <div class="modal">
-      <div class="center-wrapper">
-        <button id="btn-start" class="startgame btn">START</button>
-        <form>
+      <div class="modal">
+        <div class="center-wrapper">
+          <button id="btn-start" class="startgame btn">START</button>
+          <form>
             <select name="level" id="">
               <option value="1">easy</option>
               <option value="2">normal</option>
             </select>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-    <div class="ovl resume hidden" >
+    <div class="ovl resume hidden">
       <div class="modal Pause">
-        <button id="btn-1" class="btn btn-timer" onclick="Stopbtn()">
+        <button id="stopBtn" class="btn btn-timer">
           <center>UnPause</center>
       </div>
     </div>
   </div>
-  <script>
-    var stopfunc = function () {
-
-      var sure = confirm("bạn chắc có muốn chơi lại?");
-    if (sure === true) 
-      {
-        clearInterval(timerInterval);
-        timer = 0;
-        min = 0;
-        hour = 0;
-        document.getElementById("time").innerHTML = "0:0:00";
-        timeFlag=0;
-        resetButton();
-        showModal();
-        
-      }
-    }
-  </script>
 </body>

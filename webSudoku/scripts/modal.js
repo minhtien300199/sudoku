@@ -1,8 +1,8 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
     var overlay = document.getElementsByClassName('overlay')[0];
     console.log(overlay);
-    overlay.addEventListener('click', function(event) {
+    overlay.addEventListener('click', function (event) {
         hideModal(this);
     });
 
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 function showModal() {
-//TODO: show modal
+    //TODO: show modal
     var overlay = document.getElementsByClassName('overlay')[0];
     overlay.classList.remove('hidden');
 }
@@ -18,8 +18,7 @@ function showModal() {
 function hideModal(overlay) {
     //TODO: hide modal
     console.log(event.target);
-    if (event.target.classList.contains("startgame"))
-    {
+    if (event.target.classList.contains("startgame")) {
         overlay.classList.add('hidden');
         startTimer();
     }

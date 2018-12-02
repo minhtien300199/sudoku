@@ -34,7 +34,7 @@ var Checksudoku1 = function(ob) {
   return 1;
 };
 
-var copyOfSudokuArr=function()
+var copyOfSudokuArr=function()  //chuyển sudokuarray sang solvesudokuarr để giải
 {
   for (var rowIndex=0;rowIndex<max;rowIndex++)
     for (var colIndex=0;colIndex<max;colIndex++)
@@ -42,7 +42,14 @@ var copyOfSudokuArr=function()
       solveSudokuArr[rowIndex][colIndex]=sudokuArray[rowIndex][colIndex];
     }
 };
-
+var tranfer=function(matrixA,matrixB) //mt B cần coppy. mt A là mt coppy
+{
+  for (var rowIndex=0;rowIndex<max;rowIndex++)
+  for (var colIndex=0;colIndex<max;colIndex++)
+  {
+    matrixA[rowIndex][colIndex]=matrixB[rowIndex][colIndex];
+  }
+}
 //hàm giải cả 1 sudoku
 
 var isOK = function(i, j, x)          //kt ma trận.
@@ -211,4 +218,5 @@ var SolveSu = function()
     }
   }
   //return 1;
+  
 };

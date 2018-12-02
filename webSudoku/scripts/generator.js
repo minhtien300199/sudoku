@@ -1,43 +1,53 @@
 //console.log(Math.floor(Math.random()*10+1));
-var matrix=[["","","","","","","","",""],["","","","","","","","",""],["","","","","","","","",""],["","","","","","","","",""],["","","","","","","","",""],["","","","","","","","",""],["","","","","","","","",""],["","","","","","","","",""],["","","","","","","","",""]];
-var RanNum=function()
+var sudokuArray = [
+  ["", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", ""]
+];
+var RanNum = function () //hàm này chạy từ 1 tới 9
 {
-    var num=Math.floor(Math.random()*10+1);
-    if (num<10)
-    {
-        return num;    
-    }
-    return num-1;
-}
-var operator = function(i, j, x)          //kt ma trận.
-{
-  var k, t;
-  var tmpX, tmpY;
-  //kiem tra hang thu i da co cai nao trung chua
-  for (k = 0; k < max; k++) if (matrix[i][k] === x) return 0;
-  //kiem tra cot thu j da co cai nao trung chua
-  for (k = 0; k < max; k++) if (matrix[k][j] === x) return 0;
-  //kiem tra trong o 3x3
-  tmpX = i % 3;
-  tmpY = j % 3;
-  for (k = i - tmpX; k <= i - tmpX + 2; k++)
-    for (t = j - tmpY; t <= j - tmpY + 2; t++) if (matrix[k][t] === x) return 0;
-  return 1;
+  var num = Math.floor(Math.random() * 10 + 1); //từ 1 tới 10
+  if (num < 10) {
+    return num; //từ 1 tới 9
+  }
+  return num - 1; //lớn hơn 10 thì return 9.
 };
-matrix[4][4]=RanNum();
-matrix [0][0]= RanNum();
-matrix [8][8]=RanNum();
-sudokuArray=matrix;
-SolveSu();
-var tempp= 1;
-var delcel;
-var delrow;
-//Example : level easy is 42
-var level = 42;
-//while (tempp!==level)
-//{ delcol= RanNum();
- // delrow= RanNum();
- //matrix[delrow][delcol]="";
-//}
+
+
+var testham = function () {
+  var tempp = 1;
+  var delcol;
+  var delrow;
+  //Example : level easy is 42
+  var level = 81 - 42;
+  sudokuArray[4][4] = RanNum();
+  sudokuArray[0][0] = RanNum();
+  sudokuArray[8][8] = RanNum();
+  copyOfSudokuArr();
+  SolveSu();
+  matrix = solveSudokuArr;
+  while (tempp !== level) {
+    try {
+      delcol = RanNum() - 1;
+      delrow = RanNum() - 1;
+      solveSudokuArr[delrow][delcol] = "";
+      tempp++;
+    } catch (error) {
+      console.log(error);
+    }
+    tranfer(sudokuArray, solveSudokuArr); //chuyển solvesudokuarr sang sudokuarr
+    sudokuStack = [];
+  }
+};
+testham();
+
+
+
 //sudokuArray=matrix;
 // Cái này t còn tính : nếu mà nó Random trùng với cái ô mà nó random lần trước thì cho nó random laik, tránh trường hợp bị trùng.

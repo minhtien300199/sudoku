@@ -34,10 +34,11 @@ var delcel;
 var delrow;
 //Example : level easy is 42
 var level = 42;
-//while (tempp!==level)
-//{ delcol= RanNum();
- // delrow= RanNum();
- //matrix[delrow][delcol]="";
-//}
-//sudokuArray=matrix;
+while (tempp!==level)
+{ delcol= RanNum();
+  delrow= RanNum();
+ sudokuArray[delrow][delcol]="";
+ tempp++;
+}
+
 // Cái này t còn tính : nếu mà nó Random trùng với cái ô mà nó random lần trước thì cho nó random laik, tránh trường hợp bị trùng.

@@ -19,6 +19,8 @@ var matrixGenerator = function () {
   sudokuArray[4][4] = RanNum();
   sudokuArray[0][0] = RanNum();
   sudokuArray[8][8] = RanNum();
+  sudokuArray[2][7] = RanNum();
+  sudokuArray[7][2] = RanNum();
   copyOfSudokuArr();
   SolveSu();
   matrix = solveSudokuArr;
@@ -39,6 +41,4 @@ var matrixGenerator = function () {
   }
 };
 
-// sudokuArray=matrix;
-// Cái này t còn tính : nếu mà nó Random trùng với cái ô mà nó random lần trước thì
-// cho nó random laik, tránh trường hợp bị trùng.
+

@@ -17,32 +17,27 @@ var renderLevelSelect = function () {
     if (indexNum===1)
     {
       level=DIFFICULTY.easy;
-      matrixGenerator();
+
     }
     else if (indexNum===2)
     {
       level=DIFFICULTY.medium;
-      matrixGenerator();
     }
     else if (indexNum===3)
     {
       level=DIFFICULTY.hard;
-      matrixGenerator();
     }
     else if (indexNum===4)
     {
       level=DIFFICULTY["very-hard"];
-      matrixGenerator();
     }
     else if (indexNum===5)
     {
       level=DIFFICULTY.insane;
-      matrixGenerator();
     }
     else if (indexNum===6)
     {
       level=DIFFICULTY.inhuman;
-      matrixGenerator();
     }
   }
 };

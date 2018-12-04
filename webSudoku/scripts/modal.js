@@ -6,6 +6,7 @@
             document.getElementById('selector').addEventListener('click',renderLevelSelect);
             document.getElementById('btn-start').addEventListener('click',function()
             {
+                matrixGenerator();
                 startTimer();
                 hideModal(document.getElementsByClassName('overlay')[0]);
                 render(sudokuArray);

@@ -1,16 +1,4 @@
 // console.log(Math.floor(Math.random()*10+1))
-var sudokuArray = [
-  ['', '', '', '', '', '', '', '', ''],
-  ['', '', '', '', '', '', '', '', ''],
-  ['', '', '', '', '', '', '', '', ''],
-  ['', '', '', '', '', '', '', '', ''],
-  ['', '', '', '', '', '', '', '', ''],
-  ['', '', '', '', '', '', '', '', ''],
-  ['', '', '', '', '', '', '', '', ''],
-  ['', '', '', '', '', '', '', '', ''],
-  ['', '', '', '', '', '', '', '', ''],
-];
-
 // hàm này chạy từ 1 tới 9
 var RanNum = function () {
   // từ 1 tới 10
@@ -22,24 +10,27 @@ var RanNum = function () {
 };
 
 
-var testham = function () {
-  var tempp = 1;
+var matrixGenerator = function () {
+  var index = 1;
   var delcol;
   var delrow;
   // Example : level easy is 42
-  var level = 81 - 42;
+  var blank = 81 - level;
   sudokuArray[4][4] = RanNum();
   sudokuArray[0][0] = RanNum();
   sudokuArray[8][8] = RanNum();
   copyOfSudokuArr();
   SolveSu();
   matrix = solveSudokuArr;
-  while (tempp !== level) {
+  while (index <= blank) {
     try {
       delcol = RanNum() - 1;
       delrow = RanNum() - 1;
-      solveSudokuArr[delrow][delcol] = '';
-      tempp++;
+      if (solveSudokuArr[delrow][delcol] != '')
+      {
+        solveSudokuArr[delrow][delcol] = '';
+        index++;
+      }
     } catch (error) {
       console.log(error);
     }
@@ -47,7 +38,6 @@ var testham = function () {
     sudokuStack = [];
   }
 };
-testham();
 
 // sudokuArray=matrix;
 // Cái này t còn tính : nếu mà nó Random trùng với cái ô mà nó random lần trước thì

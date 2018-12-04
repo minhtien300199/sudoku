@@ -1,15 +1,28 @@
 //https://reverent-edison-58be06.netlify.com/
-var isWinner = function () {
-  SolveSu();
-  for (var index = 0; index < sudokuArray.length; index++) {
+var isFull = function () {
+  for (var i = 0; i < sudokuArray.length; i++) {
     for (var j = 0; j < 9; j++) {
-      if (sudokuArray[index][j] != solveSudokuArr[index][j]) {
-        return;
-      }
+      if (sudokuArray[i][j] === '')
+        return 0;
     }
   }
-  //TODO: dk thắng:
-  console.log("winner!");
+  return 1;
+};
+var isWinner = function () {
+  //SolveSu();
+  var cellChecker=document.getElementById('app');
+  var relsult = isFull();
+  if (relsult === 1) {
+    for (var i = 0; i < 9; i++) {
+      for (var j = 0; j < 9; j++) {
+        if (cellChecker.childNodes[i].childNodes[j].classList.value.indexOf("wrong") > 0){
+            return 0;
+        }
+      }
+    }
+    //TODO: dk thắng:
+    console.log("winner!");
+  }
 };
 
 var solveFullMatrix = function () {
@@ -399,19 +412,35 @@ var stopBtn = function () { //nút pause
   }
 };
 
-
+var removeDom = function () { // không dùng
+  var innerApp = document.getElementById("app");
+  while (innerApp.hasChildNodes() === true) {
+    innerApp.removeChild(innerApp.childNodes[0]);
+  }
+  var innertouchpad = document.getElementById('touchpad');
+  while (innertouchpad.hasChildNodes() === true) {
+    innertouchpad.removeChild(innertouchpad.childNodes[0]);
+  }
+  var innerDraft = document.getElementById('drafts');
+  while (innerDraft.hasChildNodes() === true) {
+    innerDraft.removeChild(innerDraft.childNodes[0]);
+  }
+};
 
 var restartBtn = function () {
   var sure = confirm("bạn chắc có muốn chơi lại?");
   if (sure === true) {
-    clearInterval(timerInterval);
-    timer = 0;
-    min = 0;
-    hour = 0;
-    document.getElementById("time").innerHTML = "0:0:00";
-    timeFlag = 0;
-    resetButton();
-    showModal();
+    // clearInterval(timerInterval);
+    // timer = 0;
+    // min = 0;
+    // hour = 0;
+    // document.getElementById("time").innerHTML = "0:0:00";
+    // timeFlag = 0;
+    // resetButton();
+    // removeDom();
+    // showModal();
+    location.reload(); // reload lại trang.
+
   }
 };
 
@@ -419,11 +448,10 @@ var restartBtn = function () {
 document.addEventListener("DOMContentLoaded", function () {
   var max = 9;
   copyOfSudokuArr();
-  render(sudokuArray);
-  renderNum(max);
-  renderDrafts(max);
+  //render(sudokuArray);
+  // renderNum(max);
+  // renderDrafts(max);
   //renderModal(max);
-
   document.addEventListener("click", function (event) {
     // console.log(event);
     if (
@@ -448,5 +476,4 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById('stopBtn').addEventListener('click', stopBtn);
   document.getElementById('pauseBtn').addEventListener('click', stopBtn);
   document.getElementById('restartBtn').addEventListener('click', restartBtn);
-
 });

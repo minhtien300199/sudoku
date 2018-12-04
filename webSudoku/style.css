@@ -256,3 +256,9 @@
 .startgame{
   width: 90%;
 }
+
+#selector {
+  width: 44vw;
+  padding: 5px;
+  margin: 2vh;
+}

@@ -265,3 +265,23 @@
 /* #bg{
   background-image: url(./hanyijie_sky_scenery_ship_anime_art_104162_1920x1080.jpg)
 } */
+#textBox {
+  width: 30vw;
+  height: 3vh;
+}
+/* input:empty{
+  border: 1px red solid;
+} */
+#endGame{
+  display: flex;
+  flex-flow: row;
+  flex-direction: column;
+}
+#gameRelsult {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-evenly;
+  text-align: center;
+}
+input:

@@ -94,3 +94,13 @@ var renderModal = function (max) {
 
   container.appendChild(innerDiv);
 };
+var renderGameResult= function(){
+  var container=document.getElementById('gameRelsult');
+  var innerDiv=document.createElement('div');
+  innerDiv.setAttribute('class','relsult');
+  playerName=document.getElementById('textBox').value;
+  var timing=document.getElementById('time').textContent;
+  innerDiv.innerHTML='player Name:'+playerName+' Time played: '+timing;
+  container.appendChild(innerDiv);
+  localStorage.setItem(playerName, timing);
+};

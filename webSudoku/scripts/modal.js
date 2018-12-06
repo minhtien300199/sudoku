@@ -1,25 +1,28 @@
+document.addEventListener('DOMContentLoaded', function () {
+    var overlay = document.getElementsByClassName('overlay')[0];
+    console.log(overlay);
+    document.getElementById('selector').addEventListener('click', renderLevelSelect);
+    // document.getElementById('btn-start').addEventListener('click', function () {
+    // });
+    document.getElementById('startForm').addEventListener('submit', handleSubmit);
 
-
-        document.addEventListener('DOMContentLoaded', function () {
-            var overlay = document.getElementsByClassName('overlay')[0];
-            console.log(overlay);
-            document.getElementById('selector').addEventListener('click',renderLevelSelect);
-            document.getElementById('btn-start').addEventListener('click',function()
-            {
-                if (document.getElementById('selector').selectedIndex!==0)
-                {
-                    matrixGenerator();
-                    startTimer();
-                    hideModal(document.getElementsByClassName('overlay')[0]);
-                    render(sudokuArray);
-                    renderNum(max);
-                    renderDrafts(max);
-                }
-            });
-            // overlay.addEventListener('click', function (event) {
-            //     hideModal(this);
-            // });
-        });
+    // overlay.addEventListener('click', function (event) {
+    //     hideModal(this);
+    // });
+});
+function handleSubmit(event) {
+    event.preventDefault();
+    if (document.getElementById('selector').selectedIndex !== 0 &&
+            document.getElementById('textBox').value !== "") {
+            matrixGenerator();
+            startTimer();
+            hideModal(document.getElementsByClassName('overlay')[0]);
+            render(sudokuArray);
+            renderNum(max);
+            renderDrafts(max);
+        }
+    return false;
+}
 function showModal() {
     //TODO: show modal
     var overlay = document.getElementsByClassName('overlay')[0];

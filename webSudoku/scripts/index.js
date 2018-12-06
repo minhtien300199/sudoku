@@ -9,7 +9,7 @@ var isFull = function () {
   return 1;
 };
 var finishGameBtn= function(){
-
+    location.reload();
 };
 var isWinner = function () {
   //SolveSu();
@@ -27,13 +27,13 @@ var isWinner = function () {
     //console.log("winner!");
     document.getElementsByClassName('overlay')[1].classList.remove('hidden');
     stopBtn();
-
+    renderGameResult();
   }
 };
 
 var solveFullMatrix = function () {
   resetButton(); //
-  var sure = confirm("bạn chắc có muốn solve?");
+  var sure = confirm("Do you want to solve this puzzle?");
   if (sure === true) {
     SolveSu(); //hàm giải
     var flag = 0;
@@ -424,7 +424,7 @@ var stopBtn = function () { //nút pause
 
 
 var restartBtn = function () {
-  var sure = confirm("bạn chắc có muốn chơi lại?");
+  var sure = confirm("Do you want to restart the game?");
   if (sure === true) {
     // clearInterval(timerInterval);
     // timer = 0;
@@ -472,4 +472,6 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById('stopBtn').addEventListener('click', stopBtn);
   document.getElementById('pauseBtn').addEventListener('click', stopBtn);
   document.getElementById('restartBtn').addEventListener('click', restartBtn);
+  document.getElementById('playAgainBtn').addEventListener('click',finishGameBtn);
 });
+

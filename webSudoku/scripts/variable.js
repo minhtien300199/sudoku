@@ -14,6 +14,7 @@ var undoSelectedCell = []; // biến xóa giao diện.
 var redoSelectedCell = []; // biến redo giao diện
 var markDraftsCell = []; // lấy địa chỉ của ghi nháp.
 var level=0;  // biến chọn level
+var playerName; // biến lưu tên người chơi
 var sudokuArray2 = [
   ['', '', '', '', '', '', '', '', ''],
   ['', '', '', '', '', '', '', '', ''],

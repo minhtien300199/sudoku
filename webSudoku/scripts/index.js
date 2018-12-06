@@ -93,10 +93,10 @@ var undoButton = function () {
   if (undoStack != 0) {
     var obj = undoStack.pop();
     var preobj = undoStack[undoStack.length - 1];
-    var row = obj.RowIndex;
-    var col = obj.ColIndex;
+   // var row = obj.RowIndex;
+    //var col = obj.ColIndex;
     redoStack.push(obj); //redostack;
-    var container = undoSelectedCell.pop();
+    var container = undoSelectedCell.pop(); //truy xuất DOM để xuất hiện lên web
     redoSelectedCell.push(container);
     if (undoStack.length == 0) {
       container.innerHTML = "";

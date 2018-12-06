@@ -6,12 +6,15 @@
             document.getElementById('selector').addEventListener('click',renderLevelSelect);
             document.getElementById('btn-start').addEventListener('click',function()
             {
-                matrixGenerator();
-                startTimer();
-                hideModal(document.getElementsByClassName('overlay')[0]);
-                render(sudokuArray);
-                renderNum(max);
-                renderDrafts(max);
+                if (document.getElementById('selector').selectedIndex!==0)
+                {
+                    matrixGenerator();
+                    startTimer();
+                    hideModal(document.getElementsByClassName('overlay')[0]);
+                    render(sudokuArray);
+                    renderNum(max);
+                    renderDrafts(max);
+                }
             });
             // overlay.addEventListener('click', function (event) {
             //     hideModal(this);

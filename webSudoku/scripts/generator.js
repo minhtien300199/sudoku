@@ -21,9 +21,9 @@ var matrixGenerator = function () {
   sudokuArray[8][8] = RanNum();
   sudokuArray[2][7] = RanNum();
   sudokuArray[7][2] = RanNum();
-  copyOfSudokuArr();
+  copyOfSudokuArr();  //chuyển sudokuarr qua solvesudokuarr để xử lý
   SolveSu();
-  matrix = solveSudokuArr;
+  //matrix = solveSudokuArr;
   while (index <= blank) {
     try {
       delcol = RanNum() - 1;

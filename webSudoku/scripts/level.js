@@ -1,5 +1,5 @@
 var DIFFICULTY = {
-  easy: 62,
+  easy: 78,
   medium: 53,
   hard: 44,
   'very-hard': 35,
@@ -11,7 +11,6 @@ var flagger = 0;
 var renderLevelSelect = function () {
   var temp=document.querySelector('#selector');
   var indexNum=temp.selectedIndex;
-  var selection=temp.options[indexNum].text;
   if (indexNum!== flagger && indexNum!=0) {
       flagger=indexNum;
     if (indexNum===1)

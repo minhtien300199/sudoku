@@ -8,6 +8,9 @@ var isFull = function () {
   }
   return 1;
 };
+var finishGameBtn= function(){
+
+};
 var isWinner = function () {
   //SolveSu();
   var cellChecker=document.getElementById('app');
@@ -21,7 +24,10 @@ var isWinner = function () {
       }
     }
     //TODO: dk thắng:
-    console.log("winner!");
+    //console.log("winner!");
+    document.getElementsByClassName('overlay')[1].classList.remove('hidden');
+    stopBtn();
+
   }
 };
 
@@ -57,6 +63,8 @@ var solveFullMatrix = function () {
         }
       }
     }
+    stopBtn();
+    document.getElementsByClassName("ovl")[0].classList.toggle('hidden');
   }
 };
 
@@ -232,7 +240,6 @@ var handleTouchPadCellClick = function (innderDiv, index) {
       var prevValue = parseInt(selectedCell[0].innerText);
       selectedCell[0].innerHTML = value;
       sudokuArray[rowIndex][colIndex] = value;
-      isWinner();
       var obj = { //tạo object để lưu vào stack
         RowIndex: rowIndex,
         ColIndex: colIndex,
@@ -257,6 +264,7 @@ var handleTouchPadCellClick = function (innderDiv, index) {
           //if (classList.indexOf("wrong")<0)
           classList.add("wrong");
         }
+        isWinner();
         undoStack.push(obj);
         undoSelectedCell.push(selectedCell[0]);
       } else if (
@@ -272,6 +280,7 @@ var handleTouchPadCellClick = function (innderDiv, index) {
           //if (classList.indexOf("wrong")<0)
           classList.add("wrong");
         }
+        isWinner();
         undoStack.push(obj);
         undoSelectedCell.push(selectedCell[0]);
       } else if (undoStack[undoStack.length - 1].value !== obj.value) {
@@ -284,6 +293,7 @@ var handleTouchPadCellClick = function (innderDiv, index) {
           //if (classList.indexOf("wrong")<0)
           classList.add("wrong");
         }
+        isWinner();
         undoStack.push(obj);
         undoSelectedCell.push(selectedCell[0]);
       } else if (undoStack[undoStack.length - 1].value === obj.value) {
@@ -412,20 +422,6 @@ var stopBtn = function () { //nút pause
   }
 };
 
-var removeDom = function () { // không dùng
-  var innerApp = document.getElementById("app");
-  while (innerApp.hasChildNodes() === true) {
-    innerApp.removeChild(innerApp.childNodes[0]);
-  }
-  var innertouchpad = document.getElementById('touchpad');
-  while (innertouchpad.hasChildNodes() === true) {
-    innertouchpad.removeChild(innertouchpad.childNodes[0]);
-  }
-  var innerDraft = document.getElementById('drafts');
-  while (innerDraft.hasChildNodes() === true) {
-    innerDraft.removeChild(innerDraft.childNodes[0]);
-  }
-};
 
 var restartBtn = function () {
   var sure = confirm("bạn chắc có muốn chơi lại?");

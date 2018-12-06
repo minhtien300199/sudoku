@@ -60,7 +60,7 @@ var renderNum = function (max) {
     } else {
       if (index < max) innerDiv.innerHTML = index + 1;
       else if (index > 9) {
-        innerDiv.innerHTML = "Solve";
+        innerDiv.innerHTML = "Hint";
       }
     }
     innerDiv.addEventListener(

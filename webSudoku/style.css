@@ -3,7 +3,7 @@
 }
 
 #base {
-  background-color: rgb(224, 224, 224);
+  background-color: rgba(224, 224, 224, 0.596);
   font-style: initial;
   cursor: unset;
 }
@@ -81,11 +81,11 @@
 }
 .cell-number:hover {
   cursor: pointer;
-  background-color: gold;
+  background-color: rgba(255, 217, 0, 0.404);
 }
 
 .active {
-  background-color: rgb(177, 248, 183);
+  background-color: rgba(177, 248, 183, 0.63);
   cursor: pointer;
 }
 
@@ -94,7 +94,7 @@
 }
 
 .row .col:hover {
-  background: rgb(189, 165, 165);
+  background: rgba(189, 165, 165, 0.719);
 }
 .hidden {
   visibility: hidden;
@@ -249,10 +249,19 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #09bdcafb;
+  background-color: #09bdca;
   z-index: 10;
 }
 
 .startgame{
   width: 90%;
 }
+
+#selector {
+  width: 44vw;
+  padding: 5px;
+  margin: 2vh;
+}
+/* #bg{
+  background-image: url(./hanyijie_sky_scenery_ship_anime_art_104162_1920x1080.jpg)
+} */

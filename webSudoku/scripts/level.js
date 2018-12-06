@@ -1,5 +1,5 @@
 var DIFFICULTY = {
-  easy: 62,
+  easy: 78,
   medium: 53,
   hard: 44,
   'very-hard': 35,
@@ -7,6 +7,36 @@ var DIFFICULTY = {
   inhuman: 17,
 };
 
-var LevelSelection = function () {
+var flagger = 0;
+var renderLevelSelect = function () {
+  var temp=document.querySelector('#selector');
+  var indexNum=temp.selectedIndex;
+  if (indexNum!== flagger && indexNum!=0) {
+      flagger=indexNum;
+    if (indexNum===1)
+    {
+      level=DIFFICULTY.easy;
 
+    }
+    else if (indexNum===2)
+    {
+      level=DIFFICULTY.medium;
+    }
+    else if (indexNum===3)
+    {
+      level=DIFFICULTY.hard;
+    }
+    else if (indexNum===4)
+    {
+      level=DIFFICULTY["very-hard"];
+    }
+    else if (indexNum===5)
+    {
+      level=DIFFICULTY.insane;
+    }
+    else if (indexNum===6)
+    {
+      level=DIFFICULTY.inhuman;
+    }
+  }
 };

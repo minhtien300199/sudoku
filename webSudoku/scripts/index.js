@@ -1,15 +1,34 @@
 //https://reverent-edison-58be06.netlify.com/
-var isWinner = function () {
-  SolveSu();
-  for (var index = 0; index < sudokuArray.length; index++) {
+var isFull = function () {
+  for (var i = 0; i < sudokuArray.length; i++) {
     for (var j = 0; j < 9; j++) {
-      if (sudokuArray[index][j] != solveSudokuArr[index][j]) {
-        return;
-      }
+      if (sudokuArray[i][j] === '')
+        return 0;
     }
   }
-  //TODO: dk thắng:
-  console.log("winner!");
+  return 1;
+};
+var finishGameBtn= function(){
+
+};
+var isWinner = function () {
+  //SolveSu();
+  var cellChecker=document.getElementById('app');
+  var relsult = isFull();
+  if (relsult === 1) {
+    for (var i = 0; i < 9; i++) {
+      for (var j = 0; j < 9; j++) {
+        if (cellChecker.childNodes[i].childNodes[j].classList.value.indexOf("wrong") > 0){
+            return 0;
+        }
+      }
+    }
+    //TODO: dk thắng:
+    //console.log("winner!");
+    document.getElementsByClassName('overlay')[1].classList.remove('hidden');
+    stopBtn();
+
+  }
 };
 
 var solveFullMatrix = function () {
@@ -44,6 +63,8 @@ var solveFullMatrix = function () {
         }
       }
     }
+    stopBtn();
+    document.getElementsByClassName("ovl")[0].classList.toggle('hidden');
   }
 };
 
@@ -219,7 +240,6 @@ var handleTouchPadCellClick = function (innderDiv, index) {
       var prevValue = parseInt(selectedCell[0].innerText);
       selectedCell[0].innerHTML = value;
       sudokuArray[rowIndex][colIndex] = value;
-      isWinner();
       var obj = { //tạo object để lưu vào stack
         RowIndex: rowIndex,
         ColIndex: colIndex,
@@ -244,6 +264,7 @@ var handleTouchPadCellClick = function (innderDiv, index) {
           //if (classList.indexOf("wrong")<0)
           classList.add("wrong");
         }
+        isWinner();
         undoStack.push(obj);
         undoSelectedCell.push(selectedCell[0]);
       } else if (
@@ -259,6 +280,7 @@ var handleTouchPadCellClick = function (innderDiv, index) {
           //if (classList.indexOf("wrong")<0)
           classList.add("wrong");
         }
+        isWinner();
         undoStack.push(obj);
         undoSelectedCell.push(selectedCell[0]);
       } else if (undoStack[undoStack.length - 1].value !== obj.value) {
@@ -271,6 +293,7 @@ var handleTouchPadCellClick = function (innderDiv, index) {
           //if (classList.indexOf("wrong")<0)
           classList.add("wrong");
         }
+        isWinner();
         undoStack.push(obj);
         undoSelectedCell.push(selectedCell[0]);
       } else if (undoStack[undoStack.length - 1].value === obj.value) {
@@ -400,18 +423,20 @@ var stopBtn = function () { //nút pause
 };
 
 
-
 var restartBtn = function () {
   var sure = confirm("bạn chắc có muốn chơi lại?");
   if (sure === true) {
-    clearInterval(timerInterval);
-    timer = 0;
-    min = 0;
-    hour = 0;
-    document.getElementById("time").innerHTML = "0:0:00";
-    timeFlag = 0;
-    resetButton();
-    showModal();
+    // clearInterval(timerInterval);
+    // timer = 0;
+    // min = 0;
+    // hour = 0;
+    // document.getElementById("time").innerHTML = "0:0:00";
+    // timeFlag = 0;
+    // resetButton();
+    // removeDom();
+    // showModal();
+    location.reload(); // reload lại trang.
+
   }
 };
 
@@ -419,11 +444,10 @@ var restartBtn = function () {
 document.addEventListener("DOMContentLoaded", function () {
   var max = 9;
   copyOfSudokuArr();
-  render(sudokuArray);
-  renderNum(max);
-  renderDrafts(max);
+  //render(sudokuArray);
+  // renderNum(max);
+  // renderDrafts(max);
   //renderModal(max);
-
   document.addEventListener("click", function (event) {
     // console.log(event);
     if (
@@ -448,5 +472,4 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById('stopBtn').addEventListener('click', stopBtn);
   document.getElementById('pauseBtn').addEventListener('click', stopBtn);
   document.getElementById('restartBtn').addEventListener('click', restartBtn);
-
 });

@@ -200,7 +200,7 @@ var SolveSu = function () {
               }
             }
           }
-          k++; //tăng k
+          //k++; //tăng k
         }
       }
     }

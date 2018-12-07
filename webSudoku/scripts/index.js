@@ -8,18 +8,18 @@ var isFull = function () {
   }
   return 1;
 };
-var finishGameBtn= function(){
-    location.reload();
+var finishGameBtn = function () {
+  location.reload();
 };
 var isWinner = function () {
   //SolveSu();
-  var cellChecker=document.getElementById('app');
+  var cellChecker = document.getElementById('app');
   var relsult = isFull();
   if (relsult === 1) {
     for (var i = 0; i < 9; i++) {
       for (var j = 0; j < 9; j++) {
-        if (cellChecker.childNodes[i].childNodes[j].classList.value.indexOf("wrong") > 0){
-            return 0;
+        if (cellChecker.childNodes[i].childNodes[j].classList.value.indexOf("wrong") > 0) {
+          return 0;
         }
       }
     }
@@ -114,7 +114,7 @@ var undoButton = function () {
   if (undoStack != 0) {
     var obj = undoStack.pop();
     var preobj = undoStack[undoStack.length - 1];
-   // var row = obj.RowIndex;
+    // var row = obj.RowIndex;
     //var col = obj.ColIndex;
     redoStack.push(obj); //redostack;
     var container = undoSelectedCell.pop(); //truy xuất DOM để xuất hiện lên web
@@ -276,8 +276,7 @@ var handleTouchPadCellClick = function (innderDiv, index) {
             classList.remove("wrong");
           }
         } else {
-          //báo sai.
-          //if (classList.indexOf("wrong")<0)
+
           classList.add("wrong");
         }
         isWinner();
@@ -289,8 +288,6 @@ var handleTouchPadCellClick = function (innderDiv, index) {
             classList.remove("wrong");
           }
         } else {
-          //báo sai.
-          //if (classList.indexOf("wrong")<0)
           classList.add("wrong");
         }
         isWinner();
@@ -305,6 +302,8 @@ var handleTouchPadCellClick = function (innderDiv, index) {
         //nhấp vào del thì sẽ kiểm tra có sô ở ô đang nhấp k.
         if (sudokuArray[rowIndex][colIndex] !== "") {
           //xóa innerhtml
+          if (classList.value.indexOf("wrong") > 0) {
+            classList.remove("wrong");}
           selectedCell[0].innerHTML = "";
           //xóa trong mảng.
           sudokuArray[rowIndex][colIndex] = "";
@@ -472,6 +471,5 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById('stopBtn').addEventListener('click', stopBtn);
   document.getElementById('pauseBtn').addEventListener('click', stopBtn);
   document.getElementById('restartBtn').addEventListener('click', restartBtn);
-  document.getElementById('playAgainBtn').addEventListener('click',finishGameBtn);
+  document.getElementById('playAgainBtn').addEventListener('click', finishGameBtn);
 });
-

@@ -46,9 +46,13 @@
 
     <div class="overlay">
       <div class="modal">
+      
         <div class="center-wrapper">
-          <button id="btn-start" class="startgame btn">START</button>
-          <form>
+            <form id="startForm" >
+            <div> Nhập tên người chơi:
+                <input type="text" name="" id="textBox" spellcheck="false" autocomplete="false" required>
+              </div> 
+        
             <select name="level" id="selector">
               <option value="0">Select Level</option>
               <option value="1">easy</option>
@@ -58,8 +62,10 @@
               <option value="5">insane</option>
               <option value="6">inhuman</option>
             </select>
-          </form>
+            <button type="submit" id="btn-start" class="startgame btn">START</button>     
+          </form>    
         </div>
+    
       </div>
     </div>
     <div class="ovl resume hidden">
@@ -68,11 +74,15 @@
           <center>UnPause</center>
       </div>
     </div>
-    <div class="overlay hidden"  >
+    <div class="overlay hidden"   >
       <div class="modal">
-        <button>
-          OK
-        </button>
+        <div id="endGame">
+            <div id="gameRelsult">
+                <button class="btn" id="playAgainBtn" >
+                    Play Again
+                  </button>
+            </div>
+        </div>
       </div>
     </div>
   </div>

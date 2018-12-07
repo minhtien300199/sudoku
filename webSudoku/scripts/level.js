@@ -1,5 +1,5 @@
 var DIFFICULTY = {
-  easy: 78,
+  easy: 80,
   medium: 53,
   hard: 44,
   'very-hard': 35,

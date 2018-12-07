@@ -146,7 +146,7 @@ var checkDraftCell = function (i, j, x) //kt ma trận.
 //hàm giải
 var SolveSu = function () {
   for (var rowIndex = 0; rowIndex < n; rowIndex++) {
-    // console.log('check row:', rowIndex);
+  
     for (var colIndex = 0; colIndex < n; colIndex++) {
       //
       var k = 1;
@@ -178,7 +178,6 @@ var SolveSu = function () {
                   continue; //giải tiếp
                 } else // nếu ô trước bằng 9 thì skip ô này. qua ô trước đó nữa tăng k và tiếp tục giải
                 {
-                  // debugger;
                   solveSudokuArr[rowIndex][colIndex] = "";
                   rowIndex = lastNode.curRow; //gán lại ô trc đó
                   colIndex = lastNode.curCol; //gán lại ô trc đó
@@ -192,10 +191,7 @@ var SolveSu = function () {
                 }
               } else {
                 console.log("Buoc di cuoi cung");
-                // rowIndex = colIndex = 0;
-                //  k++;
-                //return 1;
-                //TODO: het stack reset lai tu dau
+               
                 return -1;
               }
             }
@@ -205,6 +201,4 @@ var SolveSu = function () {
       }
     }
   }
-  //return 1;
-
 };

@@ -12,17 +12,20 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 function handleSubmit(event) {
     event.preventDefault();
+    // console.log(event);
     if (document.getElementById('selector').selectedIndex !== 0 &&
             document.getElementById('textBox').value !== "") {
-            matrixGenerator();
-            startTimer();
-            hideModal(document.getElementsByClassName('overlay')[0]);
-            render(sudokuArray);
-            renderNum(max);
-            renderDrafts(max);
-        }
+                hideModal(document.getElementsByClassName('overlay')[0]);
+                matrixGenerator();
+                startTimer();                                    
+                render(sudokuArray);
+                renderNum(max);
+                renderDrafts(max);
+            
+    }
     return false;
 }
+
 function showModal() {
     //TODO: show modal
     var overlay = document.getElementsByClassName('overlay')[0];
@@ -31,7 +34,7 @@ function showModal() {
 
 function hideModal(overlay) {
     //TODO: hide modal
-    console.log(event.target);
+    // console.log(event.target);
     overlay.classList.add('hidden');
     // if (event.target.classList.contains("startgame")) {
     //     overlay.classList.add('hidden');

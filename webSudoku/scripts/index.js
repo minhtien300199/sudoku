@@ -1,37 +1,40 @@
 //https://reverent-edison-58be06.netlify.com/
-var isFull = function () {
+var isFull = function() {
   for (var i = 0; i < sudokuArray.length; i++) {
     for (var j = 0; j < 9; j++) {
-      if (sudokuArray[i][j] === '')
-        return 0;
+      if (sudokuArray[i][j] === "") return 0;
     }
   }
   return 1;
 };
-var finishGameBtn = function () {
+var finishGameBtn = function() {
   location.reload();
 };
-var isWinner = function () {
+var isWinner = function() {
   //SolveSu();
-  var cellChecker = document.getElementById('app');
+  var cellChecker = document.getElementById("app");
   var relsult = isFull();
   if (relsult === 1) {
     for (var i = 0; i < 9; i++) {
       for (var j = 0; j < 9; j++) {
-        if (cellChecker.childNodes[i].childNodes[j].classList.value.indexOf("wrong") > 0) {
+        if (
+          cellChecker.childNodes[i].childNodes[j].classList.value.indexOf(
+            "wrong"
+          ) > 0
+        ) {
           return 0;
         }
       }
     }
     //TODO: dk thắng:
     //console.log("winner!");
-    document.getElementsByClassName('overlay')[1].classList.remove('hidden');
+    document.getElementsByClassName("overlay")[1].classList.remove("hidden");
     stopBtn();
     renderGameResult();
   }
 };
 
-var solveFullMatrix = function () {
+var solveFullMatrix = function() {
   resetButton(); //
   var sure = confirm("Do you want to solve this puzzle?");
   if (sure === true) {
@@ -64,11 +67,11 @@ var solveFullMatrix = function () {
       }
     }
     stopBtn();
-    document.getElementsByClassName("ovl")[0].classList.toggle('hidden');
+    document.getElementsByClassName("ovl")[0].classList.toggle("hidden");
   }
 };
 
-var resetButton = function () {
+var resetButton = function() {
   //set mọi thứ về 0;
 
   while (undoStack.length != 0) {
@@ -84,15 +87,15 @@ var resetButton = function () {
   for (var row = 0; row < 9; row++)
     for (var col = 0; col < 9; col++) {
       if (sudokuArray[row][col] == "") {
-        if (container.childNodes[row].childNodes[col].hasChildNodes() == true) //nghĩa là có con
-        {
+        if (container.childNodes[row].childNodes[col].hasChildNodes() == true) {
+          //nghĩa là có con
           container.childNodes[row].childNodes[col].innerHTML = "";
         }
       }
     }
 };
 
-var redoButton = function () {
+var redoButton = function() {
   //hàm redo
   if (redoStack != 0) {
     var obj = redoStack.pop();
@@ -109,7 +112,7 @@ var redoButton = function () {
   }
 };
 
-var undoButton = function () {
+var undoButton = function() {
   //hàm undo.
   if (undoStack != 0) {
     var obj = undoStack.pop();
@@ -140,14 +143,14 @@ var undoButton = function () {
   }
 };
 var axy;
-var clearSelectedCell = function () {
+var clearSelectedCell = function() {
   if (selectedCell && selectedCell.length > 0) {
     selectedCell[0].classList.remove("active");
     selectedCell = [];
   }
 };
 
-var toggleTouchPad = function (showTouchPad, rowIndex, colIndex) {
+var toggleTouchPad = function(showTouchPad, rowIndex, colIndex) {
   // console.log(position);
   var touchPad = document.getElementById("touchpad");
   var draftPad = document.getElementById("drafts");
@@ -161,11 +164,12 @@ var toggleTouchPad = function (showTouchPad, rowIndex, colIndex) {
   }
 };
 
-var createDraftsBlank = function (index) {
+var createDraftsBlank = function(index) {
   var container = selectedCell[0];
   //kt nếu có  mark rồi hay chưa
   if (container.hasChildNodes() != true) {
-    if (container.classList.value.indexOf("wrong") > 0) //nếu có tag wrong thì gỡ ra
+    if (container.classList.value.indexOf("wrong") > 0)
+      //nếu có tag wrong thì gỡ ra
       container.classList.remove("wrong");
     //nếu chưa có con  thì tạo
     //container.classList.add("mark");
@@ -190,9 +194,8 @@ var createDraftsBlank = function (index) {
   }
 };
 
-var handleDraftCellClick = function (innderDiv, index) {
-  return function () {
-
+var handleDraftCellClick = function(innderDiv, index) {
+  return function() {
     createDraftsBlank(index);
     var rowIndex = parseInt(selectedCell[0].getAttribute("data-row"));
     var colIndex = parseInt(selectedCell[0].getAttribute("data-col"));
@@ -205,15 +208,18 @@ var handleDraftCellClick = function (innderDiv, index) {
       var col = parseInt(index) % 3;
       // if (selectedCell[0].textContent!="") return 0;
       if (sudokuArray[rowIndex][colIndex] != "") return 0;
-      if (parseInt(selectedCell[0].children[row].children[col].innerText) == value) //nếu mà ô đó có số thì xóa.
-      {
+      if (
+        parseInt(selectedCell[0].children[row].children[col].innerText) == value
+      ) {
+        //nếu mà ô đó có số thì xóa.
         selectedCell[0].children[row].children[col].innerHTML = "";
       } else {
-        if (checkCell(rowIndex, colIndex, value) == 1) //nếu thỏa thì cho ghi
+        if (checkCell(rowIndex, colIndex, value) == 1)
+          //nếu thỏa thì cho ghi
           selectedCell[0].children[row].children[col].innerHTML = value;
       }
-    } else if (value == 10) //nút xóa
-    {
+    } else if (value == 10) {
+      //nút xóa
       //nhấp vào del thì sẽ kiểm tra có sô ở ô đang nhấp k.
       if (sudokuArray[rowIndex][colIndex] == "") {
         //xóa innerhtml
@@ -224,9 +230,9 @@ var handleDraftCellClick = function (innderDiv, index) {
   };
 };
 
-var handleTouchPadCellClick = function (innderDiv, index) {
+var handleTouchPadCellClick = function(innderDiv, index) {
   //xử lý nhập từ bảng số
-  return function () {
+  return function() {
     var rowIndex = selectedCell[0].getAttribute("data-row");
     var colIndex = selectedCell[0].getAttribute("data-col");
     var value = index + 1;
@@ -240,7 +246,8 @@ var handleTouchPadCellClick = function (innderDiv, index) {
       var prevValue = parseInt(selectedCell[0].innerText);
       selectedCell[0].innerHTML = value;
       sudokuArray[rowIndex][colIndex] = value;
-      var obj = { //tạo object để lưu vào stack
+      var obj = {
+        //tạo object để lưu vào stack
         RowIndex: rowIndex,
         ColIndex: colIndex,
         value: value,
@@ -254,8 +261,8 @@ var handleTouchPadCellClick = function (innderDiv, index) {
         (undoStack[undoStack.length - 1].ColIndex !== obj.ColIndex &&
           undoStack[undoStack.length - 1] !== obj.RowIndex)
       ) {
-        if (Checksudoku1(obj) === 1) //kt nếu thỏa 
-        {
+        if (Checksudoku1(obj) === 1) {
+          //kt nếu thỏa
           if (classList.value.indexOf("wrong") > 0) {
             classList.remove("wrong");
           }
@@ -276,7 +283,6 @@ var handleTouchPadCellClick = function (innderDiv, index) {
             classList.remove("wrong");
           }
         } else {
-
           classList.add("wrong");
         }
         isWinner();
@@ -303,7 +309,8 @@ var handleTouchPadCellClick = function (innderDiv, index) {
         if (sudokuArray[rowIndex][colIndex] !== "") {
           //xóa innerhtml
           if (classList.value.indexOf("wrong") > 0) {
-            classList.remove("wrong");}
+            classList.remove("wrong");
+          }
           selectedCell[0].innerHTML = "";
           //xóa trong mảng.
           sudokuArray[rowIndex][colIndex] = "";
@@ -324,8 +331,8 @@ var handleTouchPadCellClick = function (innderDiv, index) {
   };
 };
 
-var handleSudokuCellClick = function (innerDiv, rowIndex, colIndex) {
-  return function (event) {
+var handleSudokuCellClick = function(innerDiv, rowIndex, colIndex) {
+  return function(event) {
     var classList = innerDiv.classList;
     // console.log(classList);
     if (selectedCell) {
@@ -361,9 +368,9 @@ var timerInterval = null;
 var min = 0,
   hour = 0;
 var timeFlag = 0;
-var startTimer = function () {
+var startTimer = function() {
   if (timeFlag === 0) {
-    timerInterval = setInterval(function () {
+    timerInterval = setInterval(function() {
       timer += 1;
       if (timer === 60) {
         if (min >= 59) {
@@ -406,7 +413,8 @@ var startTimer = function () {
   }
 };
 
-var stopBtn = function () { //nút pause
+var stopBtn = function() {
+  //nút pause
   var ToggleModal = document.getElementsByClassName("ovl")[0];
 
   if (timeFlag === 1) {
@@ -421,8 +429,7 @@ var stopBtn = function () { //nút pause
   }
 };
 
-
-var restartBtn = function () {
+var restartBtn = function() {
   var sure = confirm("Do you want to restart the game?");
   if (sure === true) {
     // clearInterval(timerInterval);
@@ -435,24 +442,24 @@ var restartBtn = function () {
     // removeDom();
     // showModal();
     location.reload(); // reload lại trang.
-
   }
 };
 
 //render dom
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
   var max = 9;
   copyOfSudokuArr();
   //render(sudokuArray);
   // renderNum(max);
   // renderDrafts(max);
   //renderModal(max);
-  document.addEventListener("click", function (event) {
+  document.addEventListener("click", function(event) {
     // console.log(event);
     if (
-      event.target &&
-      (event.target.classList.contains("col") ||
-        event.target.classList.contains("cell")) || event.target.classList.contains("cell-drafts")
+      (event.target &&
+        (event.target.classList.contains("col") ||
+          event.target.classList.contains("cell"))) ||
+      event.target.classList.contains("cell-drafts")
     ) {
       // ko lam gi het
       // event.preventDefault();
@@ -463,13 +470,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  document.getElementById('redoBtn').addEventListener('click', redoButton);
-  document.getElementById('undoBtn').addEventListener('click', undoButton);
-  document.getElementById('resetBtn').addEventListener('click', resetButton);
-  document.getElementById('solveBtn').addEventListener('click', solveFullMatrix);
+  document.getElementById("redoBtn").addEventListener("click", redoButton);
+  document.getElementById("undoBtn").addEventListener("click", undoButton);
+  document.getElementById("resetBtn").addEventListener("click", resetButton);
+  document
+    .getElementById("solveBtn")
+    .addEventListener("click", solveFullMatrix);
 
-  document.getElementById('stopBtn').addEventListener('click', stopBtn);
-  document.getElementById('pauseBtn').addEventListener('click', stopBtn);
-  document.getElementById('restartBtn').addEventListener('click', restartBtn);
-  document.getElementById('playAgainBtn').addEventListener('click', finishGameBtn);
+  document.getElementById("stopBtn").addEventListener("click", stopBtn);
+  document.getElementById("pauseBtn").addEventListener("click", stopBtn);
+  document.getElementById("restartBtn").addEventListener("click", restartBtn);
+  document
+    .getElementById("playAgainBtn")
+    .addEventListener("click", finishGameBtn);
 });

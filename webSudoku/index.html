@@ -1,5 +1,5 @@
 <!DOCTYPE html >
-<html >
+<html>
 
 <head>
   <meta charset="utf-8">
@@ -29,7 +29,9 @@
         <button id="restartBtn" class="btn btn-timer"> New Game
         </button>
 
-        <div id="drafts" class="hidden"><center>Viết Nháp</center></div>
+        <div id="drafts" class="hidden">
+          <center>Viết Nháp</center>
+        </div>
       </div>
     </div>
     <div id="app"></div>
@@ -46,26 +48,37 @@
 
     <div class="overlay">
       <div class="modal">
-      
+
         <div class="center-wrapper">
-            <form id="startForm" >
-            <div> Nhập tên người chơi:
-                <input type="text" name="" id="textBox" spellcheck="false" autocomplete="false" required>
-              </div> 
-        
-            <select name="level" id="selector">
-              <option value="0">Select Level</option>
-              <option value="1">easy</option>
-              <option value="2">medium</option>
-              <option value="3">hard</option>
-              <option value="4">very-hard</option>
-              <option value="5">insane</option>
-              <option value="6">inhuman</option>
-            </select>
-            <button type="submit" id="btn-start" class="startgame btn">START</button>     
-          </form>    
+          <form id="startForm" class="form">
+            <div class="form-group">
+              <label for="playerName">
+                Nhập tên người chơi:
+              </label>
+              <input type="text" name="playerName" id="textBox" spellcheck="false" autocomplete="false" required />
+            </div>
+            <div class="form-group">
+              <select name="level" 
+                id="selector"
+                required                
+              >              
+                <option value="">[Please select a level]</option>
+                <option value="1">Easy</option>
+                <option value="2">Medium</option>
+                <option value="3">Hard</option>
+                <option value="4">Very hard</option>
+                <option value="5">Insane</option>
+                <option value="6">Inhuman</option>
+              </select>
+            </div>
+            <div class="form-group">
+                <button type="submit"
+                  id="btn-start" 
+                  class="startgame btn form-submit">START</button>
+            </div>
+          </form>
         </div>
-    
+
       </div>
     </div>
     <div class="ovl resume hidden">
@@ -74,14 +87,14 @@
           <center>UnPause</center>
       </div>
     </div>
-    <div class="overlay hidden"   >
+    <div class="overlay hidden">
       <div class="modal">
         <div id="endGame">
-            <div id="gameRelsult">
-                <button class="btn" id="playAgainBtn" >
-                    Play Again
-                  </button>
-            </div>
+          <div id="gameRelsult">
+            <button class="btn" id="playAgainBtn">
+              Play Again
+            </button>
+          </div>
         </div>
       </div>
     </div>

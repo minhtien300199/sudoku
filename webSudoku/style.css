@@ -321,3 +321,10 @@
   width: 90%;
   margin: auto;
 }
+.relsult{
+  padding-top: 15px;
+}
+.note{
+  font-size: 30px;
+  color: blue;
+}
